@@ -74,9 +74,40 @@ console.log ("ar1=" +ar1);
 console.log ("ar2=" +ar2);
 console.log ("ar3=" +ar3);
 
+MiaClasse.metodoX();
+
 let oggetto1=new MiaClasse();
 console.log("oggetto1=" + oggetto1);
-oggetto1.metodoX();
+oggetto1.dimmichisei();
 
+let oggetto2=new MiaClasse("Maurizio");
+console.log("oggetto2=" + oggetto2);
+oggetto2.dimmichisei();
+
+let oggetto3=new MiaClasse("Maurizio", "D'Ottavi", "di", "gate-away.com");
+console.log("oggetto3=" + oggetto3);
+oggetto3.dimmichisei();
 
 console.log ("ok siamo alla fine del primo giorno di corso.");
+
+function funzione1 () {
+    console.log ("sono nella funzione 1");
+}
+funzione1();
+let funzione2=function () {
+    console.log ("sono nella funzione anonima");
+
+}
+funzione2();
+
+let funzione3= (p) => {
+    console.log("Arrow Function:"+p);
+   };
+funzione3 (3);
+
+((p) => {
+     console.log("Arrow Function:"+p)
+    }
+    ) (3);
+
+(p => console.log("Arrow Function:"+p)  ) (4);
