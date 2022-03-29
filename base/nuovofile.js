@@ -116,3 +116,26 @@ oggetto3.setLaMiaToDoList("comprare i libri", "comprare le penne", "andare a scu
 console.log("La mia todo list e' :" , oggetto3.getLaMiaToDoList());
 oggetto3.setLaMiaToDoList("firmare il registro", "studiare");
 console.log("La mia todo list e' :" , oggetto3.getLaMiaToDoList());
+let arraytemp=[...oggetto3.getLaMiaToDoList()];
+let ultimo=arraytemp.pop();
+console.log("ultimo="+ ultimo);
+console.log("array="+ arraytemp);
+
+let primo=arraytemp.shift();
+console.log("primo="+ primo);
+console.log("array="+ arraytemp);
+
+arraytemp.unshift("primo elemento");
+console.log("array="+ arraytemp);
+
+console.log("lunghezza array="+ arraytemp.length);
+
+let a=0;
+try {
+    console.log ("Ciao siamo...");
+    a=b+1;
+} catch (e) {
+  console.log ("ERROR:" + e.toString());
+  a++;
+}
+console.log ("a= " + a);
