@@ -111,3 +111,8 @@ funzione3 (3);
     ) (3);
 
 (p => console.log("Arrow Function:"+p)  ) (4);
+
+oggetto3.setLaMiaToDoList("comprare i libri", "comprare le penne", "andare a scuola");
+console.log("La mia todo list e' :" , oggetto3.getLaMiaToDoList());
+oggetto3.setLaMiaToDoList("firmare il registro", "studiare");
+console.log("La mia todo list e' :" , oggetto3.getLaMiaToDoList());
