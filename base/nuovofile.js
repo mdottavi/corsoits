@@ -135,7 +135,19 @@ try {
     console.log ("Ciao siamo...");
     a=b+1;
 } catch (e) {
-  console.log ("ERROR:" + e.toString());
+  console.log ("  ===> ERROR:" + e.toString());
   a++;
 }
 console.log ("a= " + a);
+
+console.log("Funzioni Matematiche:");
+console.log("Ecco un numero casuale tra 0 e 1: " + Math.random());
+let y=100;
+console.log("Ecco un numero casuale tra 0 e y="+y+": " + Math.random()*y);
+console.log("Ecco un numero INTERO casuale tra 0 e y="+y+": " + Math.floor(Math.random()*y));
+let x=50;
+//console.log("Ecco un numero INTERO casuale tra x="+x+" e y="+y+": " + Math.floor(Math.random()*(y-x)) + x);
+console.log("Ecco un numero INTERO casuale tra x="+x+" e y="+y+": " + (x+ Math.floor(Math.random()*(y-x))));
+
+
+
