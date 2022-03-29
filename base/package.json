@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./nuovofile.js",
-    "dev": "nodemon ./nuovofile.js"
+    "dev": "nodemon ./nuovofile.js",
+    "server": "nodemon ./simple-server.js",
+    "client": "nodemon ./simple-client.js"
+    
   },
   "author": "",
   "license": "ISC",
