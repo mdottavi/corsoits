@@ -4,6 +4,8 @@ let os = require('os');
 let path = require('path');
 let fs = require('fs');
 let MiaClasse=require ("./miaclasse");
+let _ = require ("lodash");
+
 
 let VariabileDue=SommaUno;
 let nomevarnumerica=12;  //variable
@@ -149,5 +151,9 @@ let x=50;
 //console.log("Ecco un numero INTERO casuale tra x="+x+" e y="+y+": " + Math.floor(Math.random()*(y-x)) + x);
 console.log("Ecco un numero INTERO casuale tra x="+x+" e y="+y+": " + (x+ Math.floor(Math.random()*(y-x))));
 
+let arr1=[1,2,3];
+let arr2= [4,5,6];
+let arr3 = _.concat(arr1,arr2);
+console.log(arr3);
 
 
