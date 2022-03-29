@@ -77,3 +77,6 @@ console.log ("ar3=" +ar3);
 let oggetto1=new MiaClasse();
 console.log("oggetto1=" + oggetto1);
 oggetto1.metodoX();
+
+
+console.log ("ok siamo alla fine del primo giorno di corso.");
