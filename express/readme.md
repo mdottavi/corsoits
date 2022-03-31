@@ -14,15 +14,22 @@ restituisce:
 -----
 VERSIONE 2
 
-GET /contatore/:nomeFile
+GET /v2/contatori/:nomeFile
 restituisce:
 {
   conto: n
 }
 
-POST /contatore
-// INCREMENTA IL CONTATORE
+POST /v2/contatori
+BODY json
+{
+  nomeFile: string
+  incremento: number
+}
 restituisce:
 {
   ok: boolean
 }
+
+DELETE /v2/contatori/:nomeFile
+restituisce: STATI

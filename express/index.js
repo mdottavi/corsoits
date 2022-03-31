@@ -2,18 +2,19 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const fs = require('fs')
+const { v2Router } = require('./v2')
 
 // // create application/json parser
 const jsonParser = bodyParser.json()
 
-const middleware = (req, res, next) => {
+const middlewareV2 = (req, res, next) => {
+  console.log('sto entrando in v2');
   next();
 }
 
 // create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(middleware)
 app.use(jsonParser)
 app.use(urlencodedParser)
 
@@ -46,7 +47,6 @@ app.get('/contatore', function (req, res) {
     })
   }
 })
-
 app.post('/contatore', function (req, res) {
   console.log('siamo nella rotta di aggiornamento del contatore');
   
@@ -73,5 +73,7 @@ app.post('/contatore', function (req, res) {
     errore: e.message
   })
 })
+
+app.use('/v2', middlewareV2, v2Router);
 
 app.listen(3000);
