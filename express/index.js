@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const { v2Router } = require('./v2')
+const { v3Router } = require('./v3')
 
 // // create application/json parser
 const jsonParser = bodyParser.json()
@@ -75,5 +76,6 @@ app.post('/contatore', function (req, res) {
 })
 
 app.use('/v2', middlewareV2, v2Router);
+app.use('/v3', v3Router);
 
 app.listen(3000);
