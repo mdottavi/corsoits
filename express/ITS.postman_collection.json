@@ -211,6 +211,26 @@
 					"response": []
 				},
 				{
+					"name": "List Contatori",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Contatori",
 					"request": {
 						"method": "DELETE",
