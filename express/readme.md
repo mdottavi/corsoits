@@ -83,5 +83,13 @@ restituisce:
 
 ## elimina un contatore se esiste
 
-DELETE /v2/contatori/:nomeFile
+DELETE /v3/contatori/:nomeFile
 restituisce: STATI (204, 404, 500)
+
+## restituisce la lista di tutti i file esistenti
+
+GET /v3/contatori
+restituisce:
+[
+  ...nome file
+]
