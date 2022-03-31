@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "9a3f8945-2433-45d4-8b9e-99410fe84894",
+		"name": "ITS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "contatore",
+			"item": [
+				{
+					"name": "Get Contatore",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/contatore",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contatore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Contatore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://localhost:3000/contator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contator"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v2",
+			"item": [
+				{
+					"name": "EntryPoint v2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v2/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contatori",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v2/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v2",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contatori",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v2/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v2",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Contatori",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeFile\": \"nonso2.txt\",\r\n    \"incremento\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v2/contatori",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v2",
+								"contatori"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v3",
+			"item": [
+				{
+					"name": "EntryPoint v3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contatori",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contatori",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crea Contatore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeFile\": \"nonso2.txt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setta contatore",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nuovoValore\": 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incrementa il contatore",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"incremento\": -100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v3/contatori/:nomeFile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v3",
+								"contatori",
+								":nomeFile"
+							],
+							"variable": [
+								{
+									"key": "nomeFile",
+									"value": "nonso2.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/?param=prova&test2=verotest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "prova"
+						},
+						{
+							"key": "test2",
+							"value": "verotest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Request Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/file/ciao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"ciao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"test\": \"body\",\r\n    \"vero\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
