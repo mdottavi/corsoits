@@ -157,5 +157,7 @@ let arr3 = _.concat(arr1,arr2);
 console.log(arr3);
 console.log("eccoci con nodemon");
 
+console.log ("Fine");
+
 
 
