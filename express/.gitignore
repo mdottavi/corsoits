@@ -1,0 +1,4 @@
+node_modules
+contatore.dat
+files/*
+!files/.gitkeep
