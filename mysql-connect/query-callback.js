@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 console.log('abbiamo fatto la connessione');
 // simple query
 connection.query(
-  'select * from alieno',
+  'select * from persona',
   function (err, results, fields) {
     if(err) {
       console.log('errore', err)

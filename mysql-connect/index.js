@@ -21,6 +21,14 @@ app.get('/test', function (req, res) {
       console.log('ho fatto la query');
       console.log(results); // results contains rows returned by server
       // console.log(fields); // fields contains extra meta data about results, if available
+
+      connection.query(
+        'select * from prenotazione',
+        function (err, results, fields) {
+          console.log('ho fatto la seconda query');
+          console.log(results);
+        }
+      )
       res.json(results).send();
     }
   );
