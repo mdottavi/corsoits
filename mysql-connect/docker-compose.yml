@@ -1,0 +1,17 @@
+# Solo se si vuole utilizzare Docker
+
+services:
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'prenotazioni'
+      MYSQL_USER: 'utente'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    volumes:
+      - prenotazione-vaccini:/var/lib/mysql
+volumes:
+  prenotazione-vaccini:
