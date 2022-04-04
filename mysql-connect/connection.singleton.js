@@ -7,7 +7,7 @@ const getConnection = async () => {
     connection = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'password',
+      password: process.env.MYSQL_PASSWORD,
       database: 'piattaforma_vaccini'
     });
   }

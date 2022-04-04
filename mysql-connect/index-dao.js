@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const { listaPersone } = require('./persona.dao');
 const app = express()
