@@ -13,19 +13,23 @@ app.get('/test', function (req, res) {
     password: 'password',
     database: 'piattaforma_vaccini'
   });
-
+  console.log('abbiamo fatto la connessione');
   // simple query
   connection.query(
     'select * from persona',
     function (err, results, fields) {
+      console.log('ho fatto la query');
       console.log(results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
+      // console.log(fields); // fields contains extra meta data about results, if available
+      res.json(results).send();
     }
   );
+  console.log('abbiamo richiesto la query');
 
-  return res.json({
-    ok: false
-  });
+  // res.json({
+  //   ok: false
+  // }).send();
+  // console.log('ho inviatola risposta');
 })
 
 app.listen(3000);
