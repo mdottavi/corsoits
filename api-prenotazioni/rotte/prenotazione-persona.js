@@ -6,10 +6,10 @@ const routerPrenotazionePersona = Router();
 routerPrenotazionePersona.use(checkPersonaExists);
 
 // lista delle prenotazioni di una persona
-app.get('/', () => {})
+routerPrenotazionePersona.get('/', () => {})
 
 // Singola prenotazione di una persona
-app.get('/:id_prenotazione', () => {})
+routerPrenotazionePersona.get('/:id_prenotazione', () => {})
 // {{sampleHost}}/persona/:id_persona/prenotazione?luogo=pedaso
 
 module.exports = {
