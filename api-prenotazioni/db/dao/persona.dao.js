@@ -19,9 +19,58 @@ const getPersonaById = async (id_persona) => {
   const [rows] = await connection.query(query, [id_persona]);
   return rows[0];
 }
+// ALT + 0 0 9 6 => `
+const insertPersona = async (nome, cognome, codice_fiscale, data_nascita) => {
+  const connection = await getConnection();
+  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita)
+  VALUES (?,?,?,?)`;
+  const [ res ] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita]);
+  return res.insertId;
+}
+
+const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) => {
+  const connection = await getConnection();
+  const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?
+  WHERE id = ?`;
+  const [ res ] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+  return res.affectedRows === 1;
+}
+
+const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascita) => {
+  const connection = await getConnection();
+  const campi = [];
+  const params = [];
+  if(nome !== undefined) {
+    campi.push('nome');
+    params.push(nome);
+  }
+  if(cognome !== undefined) {
+    campi.push('cognome');
+    params.push(cognome);
+  }
+  if(codice_fiscale !== undefined) {
+    campi.push('codice_fiscale');
+    params.push(codice_fiscale);
+  }
+  if(data_nascita !== undefined) {
+    campi.push('data_nascita');
+    params.push(data_nascita);
+  }
+  // campi = ['nome', 'cognome']
+  // campi = ['nome = ?', 'cognome = ?']
+
+  params.push(id);
+  const query = `UPDATE persona SET ${campi.map(campo => campo + ` = ?`).join(',')} WHERE id = ?`;
+  const [ res ] = await connection.query(query, params);
+  return res.affectedRows === 1;
+}
+
 
 module.exports = {
   listPersona,
   personaExistById,
-  getPersonaById
+  getPersonaById,
+  insertPersona,
+  updatePersona,
+  updateCampiPersona
 }
