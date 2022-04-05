@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { listPersona, getPersonaById } = require('../db/dao/persona.dao');
 const { checkPersonaExists } = require('../middlewares/persona-exists');
 // const { routerPrenotazionePersona } = require('./prenotazione-persona');
 const routerPersona = Router();
@@ -6,13 +7,19 @@ const routerPersona = Router();
 /**
  * lista delle persone
  */
-routerPersona.get('/', () => { })
+routerPersona.get('/', async (req, res) => {
+  const persone = await listPersona();
+  return res.json(persone).send()
+})
 // app.get('/lista', () => {})
 
 /**
  * ottiene una singola persona tramite id
  */
-routerPersona.get('/:id_persona', checkPersonaExists, () => { })
+routerPersona.get('/:id_persona', checkPersonaExists, async (req, res) => {
+  const persona = await getPersonaById(req.params.id_persona);
+  return res.json(persona).send();
+})
 
 /**
  * Creiamo una persona
