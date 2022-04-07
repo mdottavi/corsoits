@@ -20,11 +20,11 @@ const getPersonaById = async (id_persona) => {
   return rows[0];
 }
 // ALT + 0 0 9 6 => `
-const insertPersona = async (nome, cognome, codice_fiscale, data_nascita) => {
+const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
-  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita)
+  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
   VALUES (?,?,?,?)`;
-  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita]);
+  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile]);
   return res.insertId;
 }
 
@@ -33,6 +33,13 @@ const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) =>
   const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?
   WHERE id = ?`;
   const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+  return res.affectedRows === 1;
+}
+
+const updateFotoPersona = async (id, pathFoto) => {
+  const connection = await getConnection();
+  const query = `UPDATE persona SET foto_tessera_sanitaria = ? WHERE id = ?`;
+  const [res] = await connection.query(query, [pathFoto, id]);
   return res.affectedRows === 1;
 }
 
@@ -81,5 +88,6 @@ module.exports = {
   insertPersona,
   updatePersona,
   updateCampiPersona,
-  softDelete
+  softDelete,
+  updateFotoPersona
 }
