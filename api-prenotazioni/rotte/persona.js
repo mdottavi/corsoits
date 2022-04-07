@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { listPersona, getPersonaById, insertPersona, updatePersona, updateCampiPersona, softDelete, updateFotoPersona } = require('../db/dao/persona.dao');
-const { checkPersonaExists } = require('../middlewares/persona-exists');
+const { checkPersonaExists, checkAndGetPersona } = require('../middlewares/persona-exists');
 const { writeFile } = require('fs/promises');
 const { randomUUID } = require('crypto');
 const { raw } = require('body-parser');
@@ -19,9 +19,9 @@ routerPersona.get('/', async (req, res) => {
 /**
  * ottiene una singola persona tramite id
  */
-routerPersona.get('/:id_persona', checkPersonaExists, async (req, res) => {
-  const persona = await getPersonaById(req.params.id_persona);
-  return res.json(persona).send();
+routerPersona.get('/:id_persona', checkAndGetPersona, async (req, res) => {
+  // const persona = await getPersonaById(req.params.id_persona);
+  return res.json(req.persona).send();
 })
 
 /**
