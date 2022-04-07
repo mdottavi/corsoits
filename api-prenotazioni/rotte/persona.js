@@ -34,7 +34,6 @@ routerPersona.post('/', async (req, res) => {
     const randomName = randomUUID();
     percorsoFile = `${randomName}-${req.files.immagine.name}`;
     await writeFile(`files/${percorsoFile}`, req.files.immagine.data);
-    await updateFotoPersona(id_persona, percorsoFile)
   }
   const id_persona = await insertPersona(nome, cognome, codice_fiscale, data_nascita, percorsoFile);
   return res.json({
@@ -70,8 +69,6 @@ routerPersona.put('/:id_persona/foto',  checkPersonaExists,
     ]
   }),
   async (req, res) => {
-    console.log(req.files);
-    console.log(req.body);
     const randomName = randomUUID();
     let estensione;
     switch(req.headers['content-type']) {

@@ -20,11 +20,11 @@ const getPersonaById = async (id_persona) => {
   return rows[0];
 }
 // ALT + 0 0 9 6 => `
-const insertPersona = async (nome, cognome, codice_fiscale, data_nascita) => {
+const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
-  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita)
+  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
   VALUES (?,?,?,?)`;
-  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita]);
+  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile]);
   return res.insertId;
 }
 
