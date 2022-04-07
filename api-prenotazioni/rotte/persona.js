@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { listPersona, getPersonaById, insertPersona, updatePersona, updateCampiPersona } = require('../db/dao/persona.dao');
+const { listPersona, getPersonaById, insertPersona, updatePersona, updateCampiPersona, softDelete } = require('../db/dao/persona.dao');
 const { checkPersonaExists } = require('../middlewares/persona-exists');
 // const { routerPrenotazionePersona } = require('./prenotazione-persona');
 const routerPersona = Router();
@@ -89,6 +89,12 @@ routerPersona.patch('/:id_persona', checkPersonaExists, async (req, res) => {
  * Eliminiamo una persona
  */
 routerPersona.delete('/:id_persona', checkPersonaExists, () => { })
+
+
+routerPersona.delete('/:id_persona/soft', checkPersonaExists, async (req,res) => {
+  await softDelete(req.params.id_persona)
+  return res.status(204).send();
+})
 
 // routerPersona.use('/:id_persona/prenotazione', checkPersonaExists, routerPrenotazionePersona);
 // routerPersona.use('/:id_persona/somministrazione', routerSomministrazionePersona);
