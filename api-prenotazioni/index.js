@@ -3,12 +3,15 @@ const express = require('express');
 const { routerPersona } = require('./rotte/persona');
 const { routerPrenotazionePersona } = require('./rotte/prenotazione-persona');
 const { json, urlencoded } = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 
 const app = express()
 
+app.use(express.static('files'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(fileUpload());
 
 app.get('/test', function (req, res) {
   res.json({

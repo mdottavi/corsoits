@@ -1,6 +1,9 @@
 const { Router } = require('express');
-const { listPersona, getPersonaById, insertPersona, updatePersona, updateCampiPersona, softDelete } = require('../db/dao/persona.dao');
+const { listPersona, getPersonaById, insertPersona, updatePersona, updateCampiPersona, softDelete, updateFotoPersona } = require('../db/dao/persona.dao');
 const { checkPersonaExists } = require('../middlewares/persona-exists');
+const { writeFile } = require('fs/promises');
+const { randomUUID } = require('crypto');
+const { raw } = require('body-parser');
 // const { routerPrenotazionePersona } = require('./prenotazione-persona');
 const routerPersona = Router();
 
@@ -26,7 +29,14 @@ routerPersona.get('/:id_persona', checkPersonaExists, async (req, res) => {
  */
 routerPersona.post('/', async (req, res) => {
   const { nome, cognome, codice_fiscale, data_nascita } = req.body;
-  const id_persona = await insertPersona(nome, cognome, codice_fiscale, data_nascita);
+  let percorsoFile;
+  if (req.files?.immagine) {
+    const randomName = randomUUID();
+    percorsoFile = `${randomName}-${req.files.immagine.name}`;
+    await writeFile(`files/${percorsoFile}`, req.files.immagine.data);
+    await updateFotoPersona(id_persona, percorsoFile)
+  }
+  const id_persona = await insertPersona(nome, cognome, codice_fiscale, data_nascita, percorsoFile);
   return res.json({
     id_persona
   });
@@ -48,6 +58,37 @@ routerPersona.put('/:id_persona', checkPersonaExists, async (req, res) => {
     })
   }
 })
+
+/**
+ * Modifichiamo una persona
+ */
+routerPersona.put('/:id_persona/foto',  checkPersonaExists,
+  raw({
+    type: [
+      'image/png',
+      'image/jpeg',
+    ]
+  }),
+  async (req, res) => {
+    console.log(req.files);
+    console.log(req.body);
+    const randomName = randomUUID();
+    let estensione;
+    switch(req.headers['content-type']) {
+      case 'image/png':
+        estensione = '.png'
+        break;
+      case 'image/jpeg':
+        estensione = '.jpg'
+        break;
+    }
+    const id_persona = req.params.id_persona;
+    percorsoFile = `${randomName}${estensione}`;
+    await writeFile(`files/${percorsoFile}`, req.body);
+    await updateFotoPersona(id_persona, percorsoFile)
+    res.status(204).send();
+  })
+
 
 /**
  * Modifichiamo alcuni campi di una persona
@@ -91,7 +132,7 @@ routerPersona.patch('/:id_persona', checkPersonaExists, async (req, res) => {
 routerPersona.delete('/:id_persona', checkPersonaExists, () => { })
 
 
-routerPersona.delete('/:id_persona/soft', checkPersonaExists, async (req,res) => {
+routerPersona.delete('/:id_persona/soft', checkPersonaExists, async (req, res) => {
   await softDelete(req.params.id_persona)
   return res.status(204).send();
 })

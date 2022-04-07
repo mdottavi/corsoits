@@ -36,6 +36,13 @@ const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) =>
   return res.affectedRows === 1;
 }
 
+const updateFotoPersona = async (id, pathFoto) => {
+  const connection = await getConnection();
+  const query = `UPDATE persona SET foto_tessera_sanitaria = ? WHERE id = ?`;
+  const [res] = await connection.query(query, [pathFoto, id]);
+  return res.affectedRows === 1;
+}
+
 const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascita) => {
   const connection = await getConnection();
   const campi = [];
@@ -81,5 +88,6 @@ module.exports = {
   insertPersona,
   updatePersona,
   updateCampiPersona,
-  softDelete
+  softDelete,
+  updateFotoPersona
 }
