@@ -1,7 +1,6 @@
 const mysql = require('mysql2/promise');
 
-
-const createConnection = async () => {
+const createMyConnection = async () => {
   return await mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -11,15 +10,15 @@ const createConnection = async () => {
 }
 
 let connection;
-const getConnection = async () => {
-  if(!connection) {
-    connection = await createConnection();
-  }
+const getMyConnection = async () => {
+    if (!connection) {
+        connection = createMyConnection();
+    }
 
-  return connection;
+    return connection;
 }
 
 module.exports = {
-  createConnection,
-  getConnection
+    createMyConnection,
+    getMyConnection
 }
