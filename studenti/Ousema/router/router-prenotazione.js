@@ -26,8 +26,8 @@ routerPrenotazione.get('/luogo/:luogo', async (req,res) => {
   });
 
 routerPrenotazione.post('/', async(req,res)=> {
-    const {persona_id,somministrazione_id,data_ora,luogo} = req.body;
-    const id_prenotazione = await insertPrenotazione(persona_id,somministrazione_id,data_ora,luogo);
+    const {persona_id,data_ora,luogo} = req.body;
+    const id_prenotazione = await insertPrenotazione(persona_id,data_ora,luogo);
     return res.json({
         "ID prenotazione creato": id_prenotazione
     })

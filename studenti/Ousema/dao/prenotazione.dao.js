@@ -28,11 +28,10 @@ const getPrenotazioneByLuogo = async(luogo) =>{
     return rows;
 }
 
-const insertPrenotazione = async(persona_id,somministrazione_id,data_ora,luogo) =>{
+const insertPrenotazione = async(persona_id,data_ora,luogo) =>{
     const connection = await getConnection();
-    const query = `INSERT INTO prenotazione (persona_id, somministrazione_id, data_ora, luogo)
-    VALUES (?,?,?,?)`;
-    const [res] = await connection.query(query, [persona_id,somministrazione_id,data_ora,luogo]);
+    const query = `INSERT INTO prenotazione (persona_id,data_ora,luogo) VALUES (?,?,?)`;
+    const [res] = await connection.query(query, [persona_id,data_ora,luogo]);
     return res.insertId;
 }
 
