@@ -1,5 +1,5 @@
 const express = require ('express');
-const { listPersona, insertPersona, getPersonaById, updatePersona, updateCampiPersona } = require('../db/dao/persona.dao');
+const { listPersona, insertPersona, getPersonaById, updatePersona, updateCampiPersona, deleteById } = require('../db/dao/persona.dao');
 const { checkPersonaExists, checkAndGetPersona } = require('../middlewares/persona-exists');
 const routerPersona = express.Router();
 const routerPersonaId = express.Router();
@@ -46,6 +46,18 @@ routerPersonaId
             messagge: 'Si è riscontrato un errore non è possibile modificare la persona'
         })
     }
+})
+.delete( checkPersonaExists, async (req,res) => {
+    /*Presumo l'id utilizzato anteriomente che viene cancellato rimane perchè created_at e update_at sono dati che rimangono nel db*/
+        const id_persona = req.params.id_persona;
+        const ok = await deleteById(id_persona);
+        if (ok) {
+            res.status(204).send()
+        } else {
+            res.status(500).json({
+                messagge: 'Si è riscontrato un errore non è possibile cancellare questa persona'
+            })
+        }
 })
 
 module.exports = {
