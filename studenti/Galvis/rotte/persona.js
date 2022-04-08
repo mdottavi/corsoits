@@ -19,8 +19,7 @@ routerPersona.get('/', async (req, res) => {
 routerPersonaId
 .route('/:id_persona')
 .get( checkAndGetPersona ,async (req,res) => {
-    const persona = await getPersonaById(req.params.id_persona);
-    return res.json(persona).send();
+    return res.json(req.persona).send();
 })
 
 module.exports = {
