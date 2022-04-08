@@ -1,6 +1,6 @@
 const express = require ('express');
-const { listPersona, insertPersona, getPersonaById } = require('../db/dao/persona.dao');
-const { checkPersonaExist, checkAndGetPersona } = require('../middlewares/persona-exists');
+const { listPersona, insertPersona, getPersonaById, updatePersona } = require('../db/dao/persona.dao');
+const { checkPersonaExists, checkAndGetPersona } = require('../middlewares/persona-exists');
 const routerPersona = express.Router();
 const routerPersonaId = express.Router();
 
@@ -20,6 +20,19 @@ routerPersonaId
 .route('/:id_persona')
 .get( checkAndGetPersona ,async (req,res) => {
     return res.json(req.persona).send();
+})
+.put( checkPersonaExists, async (req, res) => {
+    const { nome, cognome, codice_fiscale, data_nascita } = req.body;
+    const id_persona = req.params.id_persona;
+    
+    const ok = await updatePersona ( id_persona, nome, cognome, codice_fiscale, data_nascita);
+    if (ok) {
+        res.status(204).send()
+    } else {
+        res.status(500).json({
+            messagge: 'Si è riscontrato un errore non è possibile modificare la persona'
+        })
+    }
 })
 
 module.exports = {

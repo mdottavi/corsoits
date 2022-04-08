@@ -29,10 +29,19 @@ const getPersonaById = async (id_persona) => {
     return rows[0];
 }
 
+const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) => {
+    const connection = await getConnection();
+    const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?
+    WHERE id = ?`;
+    const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+    return res.affectedRows === 1;
+  }
+
 module.exports = {
     listPersona,
     insertPersona,
     personaExistById,
-    getPersonaById
+    getPersonaById,
+    updatePersona
 
 }
