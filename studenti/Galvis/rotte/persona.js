@@ -1,6 +1,8 @@
 const express = require ('express');
-const { listPersona, insertPersona } = require('../db/dao/persona.dao');
+const { listPersona, insertPersona, getPersonaById } = require('../db/dao/persona.dao');
+const { checkPersonaExist, checkAndGetPersona } = require('../middlewares/persona-exists');
 const routerPersona = express.Router();
+const routerPersonaId = express.Router();
 
 routerPersona.get('/', async (req, res) => {
     const persone = await listPersona();
@@ -14,7 +16,14 @@ routerPersona.get('/', async (req, res) => {
     })
 })
 
+routerPersonaId
+.route('/:id_persona')
+.get( checkAndGetPersona ,async (req,res) => {
+    const persona = await getPersonaById(req.params.id_persona);
+    return res.json(persona).send();
+})
 
 module.exports = {
-    routerPersona
+    routerPersona,
+    routerPersonaId
 }
