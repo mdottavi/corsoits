@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configuration": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles":[
+                "<node_internals>/**"
+            ],
+        "program": "$(workspaceFolder}\\Index.js"  
+        }
+    ]
+}
