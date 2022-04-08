@@ -44,7 +44,7 @@ const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) =>
     return res.affectedRows === 1;
   }
 
-const softDelete = async (id_persona) => {
+const softDeletePersona = async (id_persona) => {
     const connection = await getConnection();
     const query = `UPDATE persona SET is_deleted = 1 WHERE id = ?`
     const [res] = await connection.query(query, [id_persona]);
@@ -57,6 +57,6 @@ module.exports = {
     personaExistById,
     insertPersona,
     updatePersona,
-    softDelete,
+    softDeletePersona,
     listaPersoneFiltratePerData
 }
