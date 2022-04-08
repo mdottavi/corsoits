@@ -1,20 +1,21 @@
 {
-  "name": "ousema",
+  "name": "sonia",
   "version": "1.0.0",
-  "description": "esercitazione 8.04",
+  "description": "package for project work",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",
+    "prod": "node ./index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "mysql2": "^2.3.3"
-  },
-  "devDependencies": {
+    "mysql2": "^2.3.3",
+    "mysql2-promise": "^0.1.4",
     "nodemon": "^2.0.15"
   }
 }

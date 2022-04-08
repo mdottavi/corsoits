@@ -1,15 +1,16 @@
 {
-  "name": "ousema",
+  "name": "progetto_lorenza",
   "version": "1.0.0",
-  "description": "esercitazione 8.04",
+  "description": "esercitazione",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "debug": "nodemon ./index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mysql2": "^2.3.3"
