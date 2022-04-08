@@ -62,7 +62,14 @@ const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascit
     const query = `UPDATE persona SET ${campi.map(campo => campo + ` = ?`).join(',')} WHERE id = ?`;
     const [res] = await connection.query(query, params);
     return res.affectedRows === 1;
-  }
+}
+
+const deleteById = async (id) => {
+  const connection = await getConnection();
+  const query = `DELETE FROM persona WHERE id = ?`;
+  const [res] = await connection.query(query,[id]);
+  return res.affectedRows===1;
+}
 
 module.exports = {
     listPersona,
@@ -70,6 +77,7 @@ module.exports = {
     personaExistById,
     getPersonaById,
     updatePersona,
-    updateCampiPersona
+    updateCampiPersona,
+    deleteById
 
 }
