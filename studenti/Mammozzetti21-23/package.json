@@ -1,22 +1,16 @@
 {
-  "name": "galvis",
+  "name": "mammozzetti21-23",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prod": "node ./index.js",
-    "dev": "nodemon ./index.js",
     "debug": "nodemon ./index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.0",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "mysql2": "^2.3.3"
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
