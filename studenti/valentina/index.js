@@ -1,6 +1,6 @@
 require('dotenv').config();
-import express from 'express';
-import { routerPersona } from './rotte/persona';
+const express = require('express');
+const { routerPersona } = require('./rotte/persona');
 const app = express();
 
 app.get('/test', (req, res) => {
