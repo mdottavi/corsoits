@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require ('fs');
+const { url } = require('inspector');
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,7 +39,7 @@ app.post('/:nomefile', (req, res)=>{
     console.log('creiamo un nuovo file')
     const nomefile = req.params.nomefile;
     try{
-    c={}
+    const c={}
     c.nome='Lorenza';
     c.cognome='pilota';
     c.citta='san benedetto del tronto';
@@ -54,7 +55,7 @@ app.put('/:nomefile', MW_cerca_file, (req, res)=>{
     console.log('Modifichiamo un file esistente')
     const nomefile = req.params.nomefile;
     try{
-    c={}
+    const c={}
     c.nome='Maria';
     c.cognome='Cancella';
     c.citta='Pietra Camela';
@@ -64,6 +65,25 @@ app.put('/:nomefile', MW_cerca_file, (req, res)=>{
                                 errore : e});
     }
     res.json({message: 'file modificato'});
+    })
+
+app.patch('/:nomefile', MW_cerca_file, (req, res)=>{
+    console.log('Modifichiamo parte di un file esistente')
+    const nomefile = req.params.nomefile;
+    try{
+    //restituisce il json scritto nel file (parse, parsa il buffer)
+    let cont = JSON.parse(fs.readFileSync(nomefile));
+    console.log(cont)
+    const c={}
+    c.nome='Maria';
+    c.cognome = cont.cognome;
+    c.citta='Pietra Camela';
+    fs.writeFileSync(nomefile, JSON.stringify(c));    
+    }catch(e){
+        res.status(500).json({message: "c'è stato un errore",
+                                errore : e});
+    }
+    res.json({message: 'file modificato solo nei campi desiderati'});
     })
 
 app.delete('/:nomefile', MW_cerca_file, (req, res)=>{
