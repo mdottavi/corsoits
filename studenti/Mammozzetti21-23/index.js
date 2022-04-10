@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const { getConnection } = require("./connectionSql")
 
 function MDW1 (req, res, next) {
     console.log("Ho creato un Middleware")
@@ -13,14 +14,21 @@ function MDW2 (req, res, next) {
 
 app.use(MDW1);
 
-app.get("/", (req, res) => {
-    console.log("Sei nel GET.")
+app.get('/', async function (req, res) {
+    const connection = await getConnection();
+    const query = await connection.query("SELECT * FROM Persona");
+    console.log(query[0].map(persona => {
+        persona = persona.nome + persona.cognome
+        return persona
+    }))
     res.end()
-})
+});
 
-app.post("/testPOST", MDW2, (req, res) => {
+app.post("/", MDW2, (req, res) => {
     console.log("Sei nella POST.")
     res.end()
 })
+
+
 
 app.listen(3000)
