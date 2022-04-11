@@ -5,8 +5,7 @@
     "main": "Index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon ./index.js"
-
+        "debug": "nodemon ./index.js"
     },
     "author": "Roberto Marinucci",
     "license": "ISC",
