@@ -20,7 +20,7 @@ const checkPersonaExists = async (req, res, next) => {
   const esiste = await personaExistById(id_persona);
   if (!esiste) {
     return res.status(404).json({
-      message: 'la prsona non esiste'
+      message: 'la persona non esiste'
     }).send()
   }
   next();

@@ -26,7 +26,7 @@ app.get('/test', function (req, res) {
 
 app.use('/persona', routerPersona);
 app.use('/persona/:id_persona/prenotazione', routerPrenotazionePersona);
-app.use('/prenotazione', routerPersona);
+app.use('/prenotazione', routerPrenotazione);
 app.use('/utente', routerUtente);
 
 

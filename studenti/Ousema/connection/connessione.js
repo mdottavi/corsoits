@@ -1,11 +1,11 @@
 const mysql = require('mysql2/promise');
-require('dotenv').config();
+
 
 const createConnection = async () => {
   return await mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'ousema97',
+    password: process.env.MYSQL_PASSWORD,
     database: 'piattaforma_vaccini'
   });
 }
