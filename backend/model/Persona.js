@@ -4,12 +4,12 @@ const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistB
 class Persona {
     constructor(p) {
         if (p) {
-            if (p.id) this.id=p.id;
-            if (p.nome) this.nome=p.nome;
-            if (p.cognome) this.cognome=p.cognome;
-            if (p.codice_fiscale) this.CodFis=p.codice_fiscale;
-            if (p.data_nascita) this.date=p.data_nascita;
-            if (p.foto_tessera_sanitaria) this.TS=p.foto_tessera_sanitaria;
+            if (p.id)                     this.id    =p.id;
+            if (p.nome)                   this.nome  =p.nome;
+            if (p.cognome)                this.cognome=p.cognome;
+            if (p.codice_fiscale)         this.CodFis =p.codice_fiscale;
+            if (p.data_nascita)           this.date   =p.data_nascita;
+            if (p.foto_tessera_sanitaria) this.TS     =p.foto_tessera_sanitaria;
         } 
     }    
     
@@ -45,6 +45,10 @@ class Persona {
         return this.id;
     }
 
+    existId () {
+        if (this.id == null || typeof(this.id) == 'undefined') return false;
+        return true; 
+    }
     setNome(x) {
         if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
         this.nome=x;
@@ -92,6 +96,7 @@ class Persona {
         } else {
             // id non e' definito quindi dobbiamo creare un nuovo record
             let res= await insertPersona (this.nome, this.cognome, this.CodFis, this.date, this.TS);
+            this.setId(res);
             if (! res) throw 'save Persona failed (insert case).'; 
         }
     }

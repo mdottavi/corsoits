@@ -10,11 +10,12 @@ class PersonaController {
 
     static async get (req,res) {
         let result=await Persona.get(req.params.id_persona);
+        
         return res.json(result);
     }
 
     static async crea (req,res) {
-        
+
         console.log (req.files);
         req.files.TS.mv('./files/' + req.files.TS.name);
         return res.end();

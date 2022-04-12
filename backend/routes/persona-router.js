@@ -2,15 +2,11 @@ const { Router } = require('express');
 const routerPersona = Router();
 const PersonaController = require ('../controllers/PersonaController');
 
-/**
+
+/**""
  * lista delle persone
  */
-routerPersona.get('/', async (req, res) => {
-  //const persone = await listPersona();
-  return PersonaController.lista (req,res);
-  //let persone=[];
-  //return res.json(persone).send();
-})
+routerPersona.get('/', PersonaController.lista);
 
 routerPersona.post('/', async (req, res) => {
   //const persone = await listPersona();
