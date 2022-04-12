@@ -7,7 +7,8 @@ class PersonaController {
     static async lista (req , res){
         let result=await Persona.lista();
         //return res.json(result);    
-        return PersonaView(res, result );
+        //return PersonaView(res, result );
+        return res.render("listpersona",{lista:result});
     } 
 
     static async get (req,res) {
