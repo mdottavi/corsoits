@@ -1,22 +1,24 @@
 {
-  "name": "falascaz",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "nodemon ./index.js"
+    "dev": "node ./index.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
+  "description": "",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "-": "^0.0.1",
     "body-parser": "^1.20.0",
+    "dem": "^0.0.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "mysql2": "^2.3.3"
+    "fileupload": "^1.0.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "save": "^2.4.0"
   }
 }
