@@ -1,11 +1,13 @@
 const Persona=require('../model/Persona');
 
+const PersonaView=require('../views/PersonaView');
 
 class PersonaController {
       
     static async lista (req , res){
         let result=await Persona.lista();
-        return res.json(result);    
+        //return res.json(result);    
+        return PersonaView(res, result );
     } 
 
     static async get (req,res) {
