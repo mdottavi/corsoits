@@ -23,7 +23,7 @@ const getPersonaById = async (id_persona) => {
 const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
   const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
-  VALUES (?,?,?,?)`;
+  VALUES (?,?,?,?,?)`;
   const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile]);
   return res.insertId;
 }
