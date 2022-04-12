@@ -20,11 +20,11 @@ const getPersonaById = async (id_persona) => {
   return rows[0];
 }
 // ALT + 0 0 9 6 => `
-const insertPersona = async (nome, cognome, codice_fiscale, data_nascita) => {
+const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
-  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita)
+  const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
   VALUES (?,?,?,?)`;
-  const [ res ] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita]);
+  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile]);
   return res.insertId;
 }
 
@@ -32,7 +32,14 @@ const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) =>
   const connection = await getConnection();
   const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?
   WHERE id = ?`;
-  const [ res ] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+  return res.affectedRows === 1;
+}
+
+const updateFotoPersona = async (id, pathFoto) => {
+  const connection = await getConnection();
+  const query = `UPDATE persona SET foto_tessera_sanitaria = ? WHERE id = ?`;
+  const [res] = await connection.query(query, [pathFoto, id]);
   return res.affectedRows === 1;
 }
 
@@ -40,19 +47,19 @@ const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascit
   const connection = await getConnection();
   const campi = [];
   const params = [];
-  if(nome !== undefined) {
+  if (nome !== undefined) {
     campi.push('nome');
     params.push(nome);
   }
-  if(cognome !== undefined) {
+  if (cognome !== undefined) {
     campi.push('cognome');
     params.push(cognome);
   }
-  if(codice_fiscale !== undefined) {
+  if (codice_fiscale !== undefined) {
     campi.push('codice_fiscale');
     params.push(codice_fiscale);
   }
-  if(data_nascita !== undefined) {
+  if (data_nascita !== undefined) {
     campi.push('data_nascita');
     params.push(data_nascita);
   }
@@ -61,10 +68,18 @@ const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascit
 
   params.push(id);
   const query = `UPDATE persona SET ${campi.map(campo => campo + ` = ?`).join(',')} WHERE id = ?`;
-  const [ res ] = await connection.query(query, params);
+  const [res] = await connection.query(query, params);
   return res.affectedRows === 1;
 }
 
+/**
+ * @deprecated il soft delete non è prefisto per la persona 
+*/
+const softDelete = async (id_persona) => {
+  const query = `UPDATE persona SET is_deleted = 1 WHERE id = ?`
+  const [res] = await connection.query(query, [id_persona]);
+  return res.affectedRows === 1;
+}
 
 module.exports = {
   listPersona,
@@ -72,5 +87,7 @@ module.exports = {
   getPersonaById,
   insertPersona,
   updatePersona,
-  updateCampiPersona
+  updateCampiPersona,
+  softDelete,
+  updateFotoPersona
 }
