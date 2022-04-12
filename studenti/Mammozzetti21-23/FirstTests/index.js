@@ -18,7 +18,7 @@ app.get('/', async function (req, res) {
     const connection = await getConnection();
     const query = await connection.query("SELECT * FROM Persona");
     console.log(query[0].map(persona => {
-        persona = persona.nome + persona.cognome
+        persona.denominazione = persona.nome + " " + persona.cognome
         return persona
     }))
     res.end()
