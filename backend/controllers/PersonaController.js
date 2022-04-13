@@ -1,6 +1,8 @@
 const Persona=require('../model/Persona');
+const { randomUUID } = require('crypto');
 
 const PersonaView=require('../views/PersonaView');
+const { logger } = require('../common/logging');
 
 // parametgri in querystring (http://nomedominio/url?chiave=valore&chiave2=valore2)
 //                                                   ^^^^^^^^^^^^^
@@ -33,7 +35,15 @@ class PersonaController {
         let result=await Persona.lista();
         //return res.json(result);    
         //return PersonaView(res, result );
-        return res.render("listpersona",{lista:result});
+        if ( req.accepts("html") ) {
+            return res.render("listpersona",{lista:result});
+        } else if (req.accepts("xml")) {
+            res.set("Content-Type", "application/xml");
+            return res.render("listpersonaxml",{lista:result});
+        } else {
+            return res.json(result);
+        }
+        
     } 
     static async get2 (req,res,id) {
         let result=await Persona.get(id);
@@ -48,22 +58,28 @@ class PersonaController {
     }
 
     static async crea (req,res) {
-
-        console.log (req.files);
-        let np=new Persona();
-        
-        if (req.body.nome) np.setNome(req.body.nome);
-        if (req.body.cognome) np.setCognome(req.body.cognome);
-        if (req.body.CF) np.setCodFis(req.body.CF);
-        if (req.body.date) np.setDataNascita(req.body.date);
-        if ( req.files?.TS ) {
-            np.setTesseraSanitaria(req.files.TS.name);
-            req.files.TS.mv('./files/' + req.files.TS.name);    
-        } else {
-            np.setTesseraSanitaria("non pervenuta");
+        try {
+            console.log (req.files);
+            let np=new Persona();
+            
+            if (req.body.nome) np.setNome(req.body.nome);
+            if (req.body.cognome) np.setCognome(req.body.cognome);
+            if (req.body.CF) np.setCodFis(req.body.CF);
+            if (req.body.date) np.setDataNascita(req.body.date);
+            if ( req.files?.TS ) {
+                let nome_file_TS=randomUUID()+".jpg";
+                np.setTesseraSanitaria(nome_file_TS);
+                req.files.TS.mv('./files/' + nome_file_TS);    
+            } else {
+                np.setTesseraSanitaria("non pervenuta");
+            }
+            logger.debug("Creo nuova persona:", np);
+            await  np.save();
+            return PersonaController.lista (req,res) ;
+        } catch (err) {
+            logger.error ("ERRORE:", err);
+            res.status(500).send ("Internal Server Error");
         }
-        np.save();
-        return res.end();
     }
 
     static async find (cognome, nome) {
