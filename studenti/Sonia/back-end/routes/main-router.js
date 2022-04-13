@@ -1,4 +1,4 @@
-const { routerPersona } = require("./persona");
+const { routerPersona } = require("./persona-router");
 
 function ConnectRouter (app) {
     app.use('/persona', routerPersona);
