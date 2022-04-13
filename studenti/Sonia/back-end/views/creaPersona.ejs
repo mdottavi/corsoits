@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Esempio di view con EJS</title>
+    </head>
+
+    <script>
+        function callme (p) {
+           let x = document.getElementById("posto-per-scrivere");
+           x.innerHTML = p;
+        }
+    </script> 
+    
+    <body>
+        <h1>Crea nuove persone</h1>
+
+        <div id="posto-per-scrivere"></div>
+
+        <!-- il multipart nell'enctype indica che ci sarà 
+            anche un'immagine, ossia che è composto in più parti -->
+        <form action="/persona" method="post" enctype="multipart/form-data">
+            <table>
+                <tr><td>Nome</td></tr><input type="text" name="nome" value="">
+                <tr><td>Cognome</td></tr><input type="text" name="cognome" value="">
+                <tr><td>Codice Fiscale</td></tr><input type="text" name="codFisc" value="">
+                <tr><td>Data di Nascita</td></tr><input type="text" name="date" value="">
+                <tr><td>Tessera Sanitaria</td></tr><input type="text" name="ts" value="">
+            </table>
+        </form>
+        <script>
+        callme("ciao");
+    </script>
+    </body>
+</html>

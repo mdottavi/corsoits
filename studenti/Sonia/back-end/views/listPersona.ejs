@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Esempio di view con EJS</title>
+    </head>
+    
+    <body>
+        <h1>Lista persone definite</h1>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Codice Fiscale</th>
+                <th>Data di Nascita</th>
+                <th>Tessera Sanitaria</th>
+            </tr>
+            <%for (var i = 0; i < lista.length; i++) {%>
+            <tr>
+                <td><%= lista[i].nome  %></td>
+                <td><%= lista[i].cognome  %></td>
+                <td><%= lista[i].codFisc  %></td>
+                <td><%= lista[i].date %></td>
+                <td><%= lista[i].ts  %></td>
+            </tr>
+            <% } %>
+        </table>
+    </hr>
+    <table><form method="post" enctype="multipart/form-data">
+       
+        <tr><td>Nome</td><td><input type="text" name='nome' value=""></input ></td></tr>
+        <tr><td>Cognome</td><td><input type="text" name='cognome' value=""></input ></td></tr>
+        <tr><td>Codice Fiscale</td><td><input type="text" name='codFisc' value=""></input ></td></tr>
+        <tr><td>Data di Nascita</td><td><input type="text" name='date' value=""></input ></td></tr>
+        <tr><td>Tessera Sanitaria</td><td><input type="file" name='ts' value=""></input ></td></tr>
+        <tr><td><input type="submit" value='Aggiungi Nuova Persona'></input ></td></tr>
+        </form>
+        <!-- <a href="/persona/crea">Clicca qui per creare nuove persone</a> -->
+    </body>
+</html>
