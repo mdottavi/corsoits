@@ -1,12 +1,13 @@
 
 <html><head><title>Esempio di View con EJS</title></head>
 <script>
-function callme (p) {
+  function callme (p) {
    let x=document.getElementById("posto-per-scrivere");
+   console.log("ciao sono dentro callme html");
    x.innerHTML=p;
-}  
-
+  }  
 </script>
+
 <body><h1> Tool per la creazione di una nuova persona</h1>
   <div id='posto-per-scrivere'></div>
   <table><form action="/persona" method="post" enctype="multipart/form-data">
@@ -19,7 +20,9 @@ function callme (p) {
     <tr><td><input type="submit" value='Aggiungi Nuova Persona'></input ></td></tr>
     </form>
   </table>
+
   <script>
     callme("Ciao");
   </script>
+
 </body></html>
