@@ -8,13 +8,11 @@ const PersonaController = require ('../controllers/PersonaController');
  */
 routerPersona.get('/', PersonaController.lista);
 
-routerPersona.post('/', async (req, res) => {
-  //const persone = await listPersona();
-  return PersonaController.crea (req,res);
-  //let persone=[];
-  //return res.json(persone).send();
-})
+routerPersona.post('/', PersonaController.crea );
 
+routerPersona.get('/crea', async (req, res) => {
+   return res.render("creapersona",{});
+} );
 
 routerPersona.get('/:id_persona', async (req, res) => {
   //const persone = await listPersona();
