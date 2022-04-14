@@ -32,7 +32,19 @@ class PersonaController {
       
     static async lista (req , res){
         if (req.query.q) return PersonaController.get2(req,res,req.query.q);
-        let result=await Persona.lista();
+        let pagnum=1;
+        logger.debug ("PAGENUM ESTERNO:" + pagnum);
+        if (req.query.pag) {
+            let pagnum=req.query.pag;
+            logger.debug ("PAGENUM INTERNO:" + pagnum);
+        }
+        logger.debug ("PAGENUM INTERNO2:" + pagnum);
+        //
+        if (!req.accepts("html") && req.accepts("xml")) {
+            pagnum=-1;
+        }
+
+        let result=await Persona.lista(pagnum);
         //return res.json(result);    
         //return PersonaView(res, result );
         if ( req.accepts("html") ) {

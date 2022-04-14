@@ -1,8 +1,18 @@
 const { getConnection } = require('../common/connessione')
+const config= require('config');
+const { logger } = require('../common/logging');
 
-const listPersona = async () => {
+const listPersona = async (pagenum) => {
   const connection = await getConnection();
-  const [rows] = await connection.query('SELECT * FROM persona')
+  let numres=config.get('max-results-per-page');
+  let query='SELECT * FROM persona';
+  if ( pagenum > 0 ) {
+    let start=(pagenum-1)*numres;
+    query += ' LIMIT '+numres + ' OFFSET '+start;
+  } 
+  logger.debug('Query:' + query);
+  const [rows] = await connection.query(query);
+  logger.debug('Query Result:', rows);
   return rows;
 }
 

@@ -15,13 +15,18 @@ class Persona {
         } 
     }    
     
-    static async lista () {
-        let listaPersonaDAO=await listPersona();
+    static async lista (pagenum) {
+        let listaPersonaDAO=await listPersona(pagenum);
         let res=[];
-        for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPersonaDAO.length); i++ ) { 
-//       listaPersonaDAO.forEach( e => {
-            res.push(new Persona(listaPersonaDAO[i]));
-        }
+        logger.debug("Richiesta pagina num=" , pagenum);
+        //  vecchio modo (sbagliato) di limitare il numero di risultati
+        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPersonaDAO.length); i++ ) { 
+        //          res.push(new Persona(listaPersonaDAO[i]));
+        //    }
+
+        listaPersonaDAO.forEach( e => {
+            res.push(new Persona(e));
+        });
         logger.silly("Persona Model: list=" , res);
         return res;
     }
