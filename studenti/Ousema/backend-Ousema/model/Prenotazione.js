@@ -22,6 +22,7 @@ class Prenotazione{
         logger.silly("Prenotazione Model: list=" , res);
         return res;
     }
+    
 }
 
 module.exports=Prenotazione;
