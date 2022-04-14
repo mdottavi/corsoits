@@ -8,6 +8,7 @@ class Prenotazione {
         if (p) {
             if (p.id)                  this.id =p.id;
             if (p.persona_id)          this.persona_id =p.persona_id;
+            if (p.postazione_id)       this.postazione_id =p.postazione_id;
             if (p.somministrazione_id) this.somministrazione_id =p.somministrazione_id;
             if (p.data_ora)            this.data_ora =p.data_ora;
             if (p.luogo)               this.luogo =p.luogo;
