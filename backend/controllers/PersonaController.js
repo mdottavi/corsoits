@@ -35,7 +35,7 @@ class PersonaController {
         let pagnum=1;
         logger.debug ("PAGENUM ESTERNO:" + pagnum);
         if (req.query.pag) {
-            let pagnum=req.query.pag;
+            pagnum=req.query.pag;
             logger.debug ("PAGENUM INTERNO:" + pagnum);
         }
         logger.debug ("PAGENUM INTERNO2:" + pagnum);
