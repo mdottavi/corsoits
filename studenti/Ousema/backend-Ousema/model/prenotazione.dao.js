@@ -38,12 +38,18 @@ const getPrenotazioneByLuogo = async(luogo) =>{
     return rows;
 }
 
-const insertPrenotazione = async(persona_id,data_ora,luogo) =>{
+const insertPrenotazione = async(persona_id,somministrazione_id,postazione_id) =>{
     const connection = await getConnection();
-    const query = `INSERT INTO prenotazione (persona_id,data_ora,luogo) VALUES (?,?,?)`;
-    const [res] = await connection.query(query, [persona_id,data_ora,luogo]);
+    const query = `INSERT INTO prenotazione (persona_id,somministrazione_id,postazione_id) VALUES (?,?,?)`;
+    const [res] = await connection.query(query, [persona_id,somministrazione_id,postazione_id]);
     return res.insertId;
 }
+const updatePrenotazione = async (id, persona_id,somministrazione_id=null, postazione_id) => {
+    const connection = await getConnection();
+    const query = `UPDATE prenotazione SET persona_id = ?, somministrazione_id = ?,postazione_id = ? WHERE id = ?`;
+    const [res] = await connection.query(query, [persona_id, somministrazione_id, postazione_id, id]);
+    return res.affectedRows === 1;
+  }
 
 const softDeletePrenotazione = async(id_prenotazione) =>{
     const connection = await getConnection();
@@ -58,5 +64,6 @@ module.exports = {
     getPrenotazioneByDate,
     getPrenotazioneByLuogo,
     insertPrenotazione,
+    updatePrenotazione,
     softDeletePrenotazione
 }
