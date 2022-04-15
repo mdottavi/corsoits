@@ -49,11 +49,18 @@ const updatePrenotazione = async (id, persona_id, postazione_id,somministrazione
   const [res] = await connection.query(query, [persona_id, somministrazione_id, postazione_id, id]);
   return res.affectedRows === 1;
 }
+const prenotazioneDeleteById = async (id_prenotazione) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM prenotazione WHERE id = ?';
+  const [res] = await connection.query(query, [id_prenotazione]);
+  return res.affectedRows === 1;
+}
 
 module.exports = {
   listPrenotazione,
   prenotazioneExistById,
   getPrenotazioneById,
   insertPrenotazione,
-  updatePrenotazione
+  updatePrenotazione,
+  prenotazioneDeleteById
 }
