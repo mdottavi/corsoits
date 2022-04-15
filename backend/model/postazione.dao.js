@@ -59,7 +59,7 @@ const postazioneDeleteById = async (id_postazione) => {
   const connection = await getConnection();
   const query = 'DELETE FROM postazione WHERE id = ?';
   const [res] = await connection.query(query, [id_postazione]);
-  return res.affectedRows === 1;;
+  return res.affectedRows === 1;
 }
 
 module.exports = {
