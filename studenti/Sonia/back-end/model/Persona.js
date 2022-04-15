@@ -1,4 +1,4 @@
-const { listPersona, personaExistById, getPersonaById, updatePersona, insertPersona } = require("./persona.dao");
+const { listPersona, personaExistById, getPersonaById, updatePersona, insertPersona, personaDeleteById } = require("./persona.dao");
 
 class Persona {
     constructor(p) {
@@ -36,6 +36,10 @@ static async exists (id) {
 
 static async find (id) {
     return await personaExistById(id);
+}
+
+static async delete(id) {
+    return await personaDeleteById(id);
 }
 
 setId (x) {
