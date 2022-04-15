@@ -1,26 +1,36 @@
-const { listaPrenotazioni } = require("./prenotazione.dao");
+
+const { listPrenotazione, getPrenotazioneById, insertPrenotazione, updatePrenotazione, prenotazioneExistById } = require('./prenotazione.dao');
+const config= require('config');
 const { logger } = require('../common/logging');
 
-
-class Prenotazione{
+class Prenotazione {
     constructor(p) {
         if (p) {
-            if (p.id)                     this.id    =p.id;
-            if (p.persona_id)             this.persID  =p.persona_id;
-            if (p.postazione_id)          this.postID  =p.postazione_id_id;
-            if (p.somministrazione_id)    this.sommID=p.somministrazione_id;
+            if (p.id)                  this.id =p.id;
+            if (p.persona_id)          this.persona_id =p.persona_id;
+            if (p.postazione_id)       this.postazione_id =p.postazione_id;
+            if (p.somministrazione_id) this.somministrazione_id =p.somministrazione_id;
+            if (p.data_ora)            this.data_ora =p.data_ora;
+            if (p.luogo)               this.luogo =p.luogo;
         } 
     }    
-    static async lista (pag) {
-        let listaPrenotazioneDAO=await listaPrenotazioni(pag);
+    
+    static async lista (pagenum) {
+        let listaPrenotazioneDAO=await listPrenotazione(pagenum);
         let res=[];
+        logger.debug("Richiesta pagina num=" , pagenum);
+        //  vecchio modo (sbagliato) di limitare il numero di risultati
+        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPrenotazioneDAO.length); i++ ) { 
+        //          res.push(new Prenotazione(listaPrenotazioneDAO[i]));
+        //    }
 
-        listaPrenotazioneDAO.forEach(e =>{
-            res.push(new Prenotazione(e))
-        })
+        listaPrenotazioneDAO.forEach( e => {
+            res.push(new Prenotazione(e));
+        });
         logger.silly("Prenotazione Model: list=" , res);
         return res;
     }
+
     static async get(id) {
         let pf=await getPrenotazioneById(id);
         if (pf) { return new Prenotazione(pf);}
@@ -90,5 +100,5 @@ class Prenotazione{
     }
 
 }
-    
-module.exports=Prenotazione;
+
+module.exports = Prenotazione;
