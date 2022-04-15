@@ -91,7 +91,7 @@ class PostazioneController {
     static async get (req,res) {
         let result;
         if ( ! req.Postazione ) {
-            result=await Postazione.exists(req.params.id);
+            result=await Postazione.get(req.params.id);
         } else {
             result = req.Postazione;
         }
