@@ -7,16 +7,13 @@ class PrenotazioneController {
         if (req.query.pag) {
             pagnum=req.query.pag;
         }
-        logger.debug ("PrenotazioneController pag=" + pagnum);
+        logger.debug ("PrenotazioneController:" + pagnum);
 
         let result=await Prenotazione.lista(pagnum);
-        return res.json(result);    
+        //return res.json(result);    
         //return PersonaView(res, result );
         if ( req.accepts("html") ) {
-            return res.render("listpersona",{lista:result});
-        } else if (req.accepts("xml")) {
-            res.set("Content-Type", "application/xml");
-            return res.render("listpersonaxml",{lista:result});
+            return res.render("listprenotazione",{lista:result});
         } else {
             return res.json(result);
         }
