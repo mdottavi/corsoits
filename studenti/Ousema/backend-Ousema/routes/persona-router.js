@@ -20,5 +20,7 @@ routerPersona.get('/:id_persona', async (req, res) => {
   //let persone=[];
   //return res.json(persone).send();
 })
+routerPersona.delete('/:id', PersonaController.elimina);
+routerPersona.put('/:id', PersonaController.checkId, PersonaController.edit);
 
 module.exports = routerPersona;

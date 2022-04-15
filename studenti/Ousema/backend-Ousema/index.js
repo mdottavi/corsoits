@@ -9,8 +9,6 @@ const ConnectRouter = require ('./routes/main-router');
 
 const { logger } = require('./common/logging');
 
-
-
 console.log("NODE_ENV=" + process.env.NODE_ENV);
 
 console.log("Starting Application...") ;

@@ -92,6 +92,14 @@ const softDelete = async (id_persona) => {
   return res.affectedRows === 1;
 }
 
+
+const personaDeleteById = async (id_persona) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM persona WHERE id = ?';
+  const [res] = await connection.query(query, [id_persona]);
+  return res.affectedRows === 1;;
+}
+
 module.exports = {
   listPersona,
   personaExistById,
@@ -100,5 +108,6 @@ module.exports = {
   updatePersona,
   updateCampiPersona,
   softDelete,
-  updateFotoPersona
+  updateFotoPersona,
+  personaDeleteById
 }
