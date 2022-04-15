@@ -1,5 +1,5 @@
 
-const { listPostazione, getPostazioneById, insertPostazione, updatePostazione, postazioneExistById } = require('./postazione.dao');
+const { listPostazione, getPostazioneById, insertPostazione, updatePostazione, postazioneExistById, postazioneDeleteById } = require('./postazione.dao');
 const config= require('config');
 const { logger } = require('../common/logging');
 
@@ -40,6 +40,10 @@ class Postazione {
 
     static async find(id) {
         return await postazioneExistById(id);
+    }
+
+    static async delete(id) {
+        return await postazioneDeleteById(id);
     }
 
     // id

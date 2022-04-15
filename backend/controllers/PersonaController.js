@@ -16,8 +16,8 @@ const { logger } = require('../common/logging');
 //   req.params.chiave
 //   req.params.chiave2
 
-// parametri in form (http://nomedominio/nome/:chiave/url/:chiave2?chiave=valore&chiave2=valore2)
-//                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+// parametri in form/json (http://nomedominio/nome/:chiave/url/:chiave2?chiave=valore&chiave2=valore2)
+//                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
 //                                               url
 //   req.body.chiave
 //   req.body.chiave2
