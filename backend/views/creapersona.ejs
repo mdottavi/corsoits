@@ -1,28 +1,39 @@
 
 <html><head><title>Esempio di View con EJS</title></head>
 <script>
-  function callme (p) {
-   let x=document.getElementById("posto-per-scrivere");
-   console.log("ciao sono dentro callme html");
-   x.innerHTML=p;
-  }  
+  function edit(id) {
+    return fetch('/persona/'+id, {
+        method: 'PUT',
+        body: getdata()
+    });
+  } 
+  function crea() {
+    return fetch('/persona/', {
+        method: 'POST',
+        body: getdata()
+      });
+  }
+  function getdata(){
+    var data = new FormData();
+   data.append('TS', document.getElementById("TS").files[0]);
+   data.append("nome", document.getElementById("nome").value);
+   data.append("cognome", document.getElementById("cognome").value);
+   data.append("date", document.getElementById("date").value);
+   data.append("CF", document.getElementById("CF").value);
+   return data;
+  }
 </script>
+<% if ( cognome == "" ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Visualizzazione";  FunzionedaChiamare="edit('" + id + "')";} %> 
 
 <body><h1> Tool per la creazione di una nuova persona</h1>
   <div id='posto-per-scrivere'></div>
-  <table><form action="/persona" method="post" enctype="multipart/form-data">
-       
-    <tr><td>Nome</td><td><input type="text" name='nome' value=""></input ></td></tr>
-    <tr><td>Cognome</td><td><input type="text" name='cognome' value=""></input ></td></tr>
-    <tr><td>Codice Fiscale</td><td><input type="text" name='CF' value=""></input ></td></tr>
-    <tr><td>DataNascita</td><td><input type="text" name='date' value=""></input ></td></tr>
-    <tr><td>Tessera Sanitaria</td><td><input type="file" name='TS' value=""></input ></td></tr>
-    <tr><td><input type="submit" value='Aggiungi Nuova Persona'></input ></td></tr>
-    </form>
+  <table>
+    <tr><td>Nome</td><td><input type="text" id="nome" name='nome' value="<%= nome %>"></input ></td></tr>
+    <tr><td>Cognome</td><td><input type="text" id="cognome" name='cognome' value="<%= cognome %>"></input ></td></tr>
+    <tr><td>Codice Fiscale</td><td><input type="text" id="CF" name='CF' value="<%=CodFis %>"></input ></td></tr>
+    <tr><td>DataNascita</td><td><input type="text" id="date" name='date' value="<%=date %>"></input ></td></tr>
+    <tr><td>Tessera Sanitaria</td><td><input type="file" id="TS" name='TS' value="<%=TS %>"></input ></td></tr>
+    <tr><td><button type="submit" value='Salva' onclick="<%- FunzionedaChiamare %>">Salva</button ></td></tr>    
   </table>
-
-  <script>
-    callme("Ciao");
-  </script>
 
 </body></html>
