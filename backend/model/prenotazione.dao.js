@@ -5,7 +5,13 @@ const { logger } = require('../common/logging');
 const listPrenotazione = async (pagenum) => {
   const connection = await getConnection();
   let numres=config.get('max-results-per-page');
-  let query='SELECT * FROM prenotazione';
+  let query=`SELECT prenotazione.*, 
+                    postazione.id as post_id, postazione.luogo , postazione.data_ora,
+                    persona.id as pers_id, persona.nome, persona.cognome, persona.codice_fiscale, persona.data_nascita, persona.foto_tessera_sanitaria
+                    FROM prenotazione  
+                LEFT JOIN postazione ON prenotazione.postazione_id = postazione.id
+                LEFT JOIN persona    ON prenotazione.persona_id = persona.id
+     `;
   if ( pagenum > 0 ) {
     let start=(pagenum-1)*numres;
     query += ' LIMIT '+numres + ' OFFSET '+start;

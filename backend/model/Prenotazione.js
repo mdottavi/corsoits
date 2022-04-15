@@ -1,17 +1,26 @@
 
-const { listPrenotazione, getPrenotazioneById, insertPrenotazione, updatePrenotazione, prenotazioneExistById } = require('./prenotazione.dao');
+const { listPrenotazione, getPrenotazioneById, insertPrenotazione, updatePrenotazione, prenotazioneExistById, prenotazioneDeleteById, updateCampiPrenotazione, softDelete, updateFotoPrenotazione } = require('./prenotazione.dao');
 const config= require('config');
 const { logger } = require('../common/logging');
 
 class Prenotazione {
     constructor(p) {
         if (p) {
-            if (p.id)                  this.id =p.id;
-            if (p.persona_id)          this.persona_id =p.persona_id;
-            if (p.postazione_id)       this.postazione_id =p.postazione_id;
-            if (p.somministrazione_id) this.somministrazione_id =p.somministrazione_id;
-            if (p.data_ora)            this.data_ora =p.data_ora;
-            if (p.luogo)               this.luogo =p.luogo;
+            if (p.id)                     this.id    =p.id;
+
+            if (p.pers_id)                this.pers_id    =p.pers_id;
+            if (p.nome)                   this.nome  =p.nome;
+            if (p.cognome)                this.cognome=p.cognome;
+            if (p.codice_fiscale)         this.CodFis =p.codice_fiscale;
+            if (p.data_nascita)           this.date   =p.data_nascita;
+            if (p.foto_tessera_sanitaria) this.TS     =p.foto_tessera_sanitaria;
+
+            if (p.post_id)                this.post_id    =p.post_id;
+            if (p.luogo)                  this.luogo     =p.luogo;
+            if (p.data_ora)               this.data_ora     =p.data_ora;
+
+            if (p.somm_id)                this.somministrazione_id    =p.somministrazione_id;
+
         } 
     }    
     
@@ -45,7 +54,10 @@ class Prenotazione {
         return await prenotazioneExistById(id);
     }
 
-    // id
+    static async delete(id) {
+        return await prenotazioneDeleteById(id);
+    }
+
     setId(x) {
         if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
         this.id=x;
@@ -54,22 +66,61 @@ class Prenotazione {
         return this.id;
     }
 
-    //persona_id
-    setPersona_id(x) {
-        this.persona_id=x;
+    setPers_id(x) {
+        if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
+        this.pers_id=x;
     }
-    getPersona_id() {
-        return this.persona_id;
-    }
-
-    //somministrazione_id
-    setSomministrazione_id(x) {
-        this.somministrazione_id=x;
-    }
-    getSomministrazione_id() {
-        return this.somministrazione_id;
+    getPers_id() {
+        return this.pers_id;
     }
 
+    setNome(x) {
+        if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
+        this.nome=x;
+    }
+    getNome() {
+        return this.nome;
+    }
+
+    setCognome(x) {
+        if (x == null || typeof(x) == 'undefined')  throw 'Cognome cannot be null';
+        this.cognome=x;
+    }
+    getCognome() {
+        return this.cognome;
+    }
+
+    setCodFis(x) {
+        // Qui potremmo testare che il codice Fiscale sia settato correttamente
+        this.CodFis=x;
+
+    }
+    getCodFis() {
+        return this.CodFis;
+    }
+
+    setDataNascita (x) {
+        this.date=x;
+    }
+    getDataNascita () {
+        return this.date;
+    }
+
+    setTesseraSanitaria (x) {
+        this.TS=x;
+    }
+    getTesseraSanitaria () {
+        return this.TS;
+    }
+
+
+    setPost_id(x) {
+        if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
+        this.post_id=x;
+    }
+    getPost_id() {
+        return this.post_id;
+    }    
     //data_ora
     setData_ora(x) {
         this.data_ora=x;
@@ -86,14 +137,30 @@ class Prenotazione {
         return this.luogo;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     async save() {
         if (typeof (this.id) != 'undefined' && this.id != null ) {
-            // id e' definito quindi dobbiamo aggiornare il recordo della Prenotazione
-            let res= await updatePrenotazione (this.id, this.persona_id, this.somministrazione_id, this.data_ora, this.luogo);
+            // id e' definito quindi dobbiamo aggiornare il recordo della prenotazione
+            let res= await updatePrenotazione (this.id, this.nome, this.cognome, this.CodFis, this.date, this.TS);
             if (! res) throw 'save Prenotazione failed (update case).'; 
         } else {
             // id non e' definito quindi dobbiamo creare un nuovo record
-            let res= await insertPrenotazione (this.persona_id, this.somministrazione_id, this.data_ora, this.luogo);
+            let res= await insertPrenotazione (this.nome, this.cognome, this.CodFis, this.date, this.TS);
             this.setId(res);
             if (! res) throw 'save Prenotazione failed (insert case).'; 
         }
