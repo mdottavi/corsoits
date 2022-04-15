@@ -1,0 +1,36 @@
+
+<html><head><title>Nuova Prenotazione</title>
+  <script>
+  function edit(id) {
+    return fetch('/prenotazione/'+id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "luogo": document.getElementById("luogo").value , "data_ora" :document.getElementById("data_ora").value })
+    });
+  } 
+  function crea() {
+    return fetch('/prenotazione/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "pers_id": document.getElementById("pers_id").value , "post_id" :document.getElementById("post_id").value })
+    });
+  }
+  
+</script>
+</head>
+ <%  NomeView="Creazione"; FunzionedaChiamare="crea()"; //if ( pers_id == "" ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Visualizzazione";  FunzionedaChiamare="edit('" + id + "')";} %> 
+<body><h1><%- NomeView %> di Prenotazione</h1>
+  <table>
+       
+    <tr><td>Persona</td><td><select  id='pers_id' >
+      <% for (let i=0; i < listaPersone.length ; i++) { %>
+        <option value="<%- listaPersone[i].id %>"><%- listaPersone[i].nome %> <%- listaPersone[i].cognome %></option>
+      <% } %>
+    </select></td></tr>
+    <tr><td>Postazione</td><td><input type="text" name='post_id'  id ='post_id' value=""></input ></td></tr>
+    <tr><td><button type="submit" value='Salva' onclick="<%- FunzionedaChiamare %>">Salva</button ></td></tr>
+    
+  </table>
+
+
+</body></html>
