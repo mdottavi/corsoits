@@ -31,7 +31,14 @@ const prenotazioneExistById = async (id_prenotazione) => {
 
 const getPrenotazioneById = async (id_prenotazione) => {
   const connection = await getConnection();
-  const query = 'SELECT * FROM prenotazione WHERE id = ?';
+  let query=`SELECT prenotazione.*, 
+                    postazione.id as post_id, postazione.luogo , postazione.data_ora,
+                    persona.id as pers_id, persona.nome, persona.cognome, persona.codice_fiscale, persona.data_nascita, persona.foto_tessera_sanitaria
+                    FROM prenotazione  
+                LEFT JOIN postazione ON prenotazione.postazione_id = postazione.id
+                LEFT JOIN persona    ON prenotazione.persona_id = persona.id
+                WHERE prenotazione.id = ?
+     `;
   const [rows] = await connection.query(query, [id_prenotazione]);
   return rows[0];
 }
@@ -49,11 +56,18 @@ const updatePrenotazione = async (id, persona_id, postazione_id,somministrazione
   const [res] = await connection.query(query, [persona_id, somministrazione_id, postazione_id, id]);
   return res.affectedRows === 1;
 }
+const prenotazioneDeleteById = async (id_prenotazione) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM prenotazione WHERE id = ?';
+  const [res] = await connection.query(query, [id_prenotazione]);
+  return res.affectedRows === 1;
+}
 
 module.exports = {
   listPrenotazione,
   prenotazioneExistById,
   getPrenotazioneById,
   insertPrenotazione,
-  updatePrenotazione
+  updatePrenotazione,
+  prenotazioneDeleteById
 }
