@@ -18,17 +18,23 @@
   
 </script>
 </head>
- <%  if ( typeof (pers_id) == "undefined" ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Visualizzazione";  FunzionedaChiamare="edit('" + id + "')";} %> 
+ <%  if ( !current ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Modifica - " +current.id;  FunzionedaChiamare="edit('" + current.id + "')";} %> 
 <body><h1><%- NomeView %> di Prenotazione</h1>
   <table>
        
     <tr><td>Persona</td><td><select  id='pers_id' >
+      <% if (current) { %>
+        <option selected value="<%- current.pers_id %>"><%- current.nome %> <%- current.cognome %></option>
+      <% }  %>
       <% for (let i=0; i < listaPersone.length ; i++) { %>
         <option value="<%- listaPersone[i].id %>"><%- listaPersone[i].nome %> <%- listaPersone[i].cognome %></option>
       <% } %>
     </select></td></tr>
 
     <tr><td>Postazione</td><td><select  id='post_id' >
+      <% if (current) { %>
+        <option selected value="<%- current.post_id %>"><%- current.luogo %> <%- current.data_ora %></option>
+      <% }  %>
       <% for (let i=0; i < listaPostazioni.length ; i++) { %>
         <option value="<%- listaPostazioni[i].id %>"><%- listaPostazioni[i].luogo %> - <%- listaPostazioni[i].data_ora %></option>
       <% } %>
