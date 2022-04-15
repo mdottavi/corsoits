@@ -1,6 +1,6 @@
-const routerPersona=require ('./router-persona.js');
-const { routerPostazione } = require('./router-postazione.js');
-const { routerPrenotazione } = require('./router-prenotazione.js');
+const routerPersona=require ('./persona-router.js');
+const routerPrenotazione=require ('./prenotazione-router.js');
+const routerPostazione=require ('./postazione-router.js');
 
 function ConnectRouter (app) {
     app.use('/persona', routerPersona);

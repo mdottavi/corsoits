@@ -1,5 +1,5 @@
 
-const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, updateCampiPersona, softDelete, updateFotoPersona } = require('./persona.dao');
+const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, updateCampiPersona, softDelete, updateFotoPersona, personaDeleteById } = require('./persona.dao');
 const config= require('config');
 const { logger } = require('../common/logging');
 
@@ -42,6 +42,11 @@ class Persona {
     static async find(id) {
         return await personaExistById(id);
     }
+
+    static async delete(id) {
+        return await personaDeleteById(id);
+    }
+
 
     setId(x) {
         if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';

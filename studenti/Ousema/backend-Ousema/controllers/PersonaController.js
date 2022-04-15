@@ -62,6 +62,32 @@ class PersonaController {
         return res.json(result);
     }
 
+    static async checkId (req,res,next) {
+        try {
+            if (req.params.id ) {
+                logger.debug("PersonaController checkId req.params.id:", req.params.id);
+                const eIntero = parseInt(req.params.id);
+                if(isNaN(eIntero)) {
+                  return res.status(400).send("id non numerico");
+                }
+                let p;
+                p=await Persona.get(req.params.id);
+                if (p ) {
+                    logger.debug("PersonaController checkId found",p);
+                    req.Postazione=p;
+                    next();
+                }  else {
+                    logger.error("PersonaController checkId Errore - id non trovato");
+                    return res.status(404).send ("Id non trovato");                    
+                }               
+            } 
+        } catch (err) {
+            logger.error ("ERRORE:", err);
+            return res.status(500).send ("Internal Server Error");
+        }            
+    }
+
+
     static async crea (req,res) {
         try {
             console.log (req.files);
@@ -94,6 +120,46 @@ class PersonaController {
              res=await Persona.find(cognome, nome);
         }
         
+    }
+
+    static async edit (req,res) {
+        try {
+            let np;
+            if ( ! req.Persona ) {
+                np=await Persona.get(req.params.id);
+            } else {
+                np = req.Persona;
+            }
+            logger.debug("req.body:", req.body);
+            if (req.body.nome) np.setNome(req.body.nome);
+            if (req.body.cognome) np.setcognome(req.body.cognome);
+            if (req.body.codice_fiscale) np.setCodFis(req.body.codice_fiscale);
+            if (req.body.date) np.setDataNascita(req.body.date);
+            if (req.body.date) np.setDataNascita(req.body.date);
+            logger.debug("Salvo la Postazione:", np);
+            await  np.save();
+            res.status(200).send("Ok");
+            //return PostazioneController.lista (req,res) ;
+        } catch (err) {
+            logger.error ("ERRORE:", err);
+            res.status(500).send ("Internal Server Error");
+        }
+
+    }
+
+    static async elimina (req,res) {
+        try {
+            if (await Persona.delete(req.params.id) ) {
+            logger.debug("PersonaController eliminato ", req.params.id);
+            res.status(200).send('Ok');
+            } else {
+                logger.error("Errore Cancellazione Persona", req.params.id);
+                res.status(400).send ("Errore Cancellazione Persona");
+            }
+        } catch (err) {
+            logger.error ("ERRORE:", err);
+            res.status(500).send ("Internal Server Error");
+        }
     }
 }
 
