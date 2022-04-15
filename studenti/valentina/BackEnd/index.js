@@ -1,16 +1,28 @@
+
+const express = require('express');
+const morgan = require('morgan');
+
 require('dotenv').config();
-const express = require('express')
 const { json, urlencoded } = require('body-parser');
 const fileUpload = require('express-fileupload');
-const connectRouter (app) {
-    app.use
-}
+const ConnectRouter = require ('./routes/main-router');
 
-console.log(process.env.MYSQL_USER * " " * process.env.MYSQL_USER)
+const { logger } = require('./common/logging');
+
+console.log("NODE_ENV=" + process.env.NODE_ENV);
+
+console.log("Starting Application...") ;
+
+
 const app = express()
 
 app.use(express.static('files'));
+app.use(express.static('resources'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(fileUpload());
-connectRouter(app);
+app.use(morgan('combined', { "stream": logger.httpStream }));
+app.set('view engine', 'ejs');
+ConnectRouter(app);
+
+app.listen(9000);

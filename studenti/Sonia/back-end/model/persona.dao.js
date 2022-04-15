@@ -1,4 +1,4 @@
-const { getConnection } = require("../db/connection");
+const { getConnection } = require("../common/connection");
 
 const listPersona = async () => {
   const connection = await getConnection();
@@ -23,7 +23,7 @@ const getPersonaById = async (id_persona) => {
 const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
   const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
-  VALUES (?,?,?,?)`;
+  VALUES (?,?,?,?,?)`;
   const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile]);
   return res.insertId;
 }
@@ -72,6 +72,13 @@ const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascit
   return res.affectedRows === 1;
 }
 
+const personaDeleteById = async (id_persona) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM persona WHERE id = ?';
+  const [res] = await connection.query(query, [id_persona]);
+  return res.affectedRows === 1;
+}
+
 /**
  * @deprecated il soft delete non è prefisto per la persona 
 */
@@ -89,5 +96,6 @@ module.exports = {
   updatePersona,
   updateCampiPersona,
   softDelete,
-  updateFotoPersona
+  updateFotoPersona,
+  personaDeleteById
 }
