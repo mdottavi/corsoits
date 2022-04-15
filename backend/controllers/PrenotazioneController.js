@@ -1,5 +1,6 @@
 const Prenotazione=require('../model/Prenotazione');
 const Persona=require('../model/Persona');
+const Postazione=require('../model/Postazione');
 
 const { logger } = require('../common/logging');
 
@@ -91,10 +92,18 @@ class PrenotazioneController {
     
     static async bakeCreationData (req,res) {
         try {
+            let luogo=null;
+            if (req.query.luogo) {
+                luogo=req.query.luogo;
+            }
+    
             let persone=[];
             persone=await Persona.lista();
             logger.debug("bakeCreationData: Persone trovate:",persone);
-            return res.render("creaprenotazione",{listaPersone: persone}) ;
+            let postazioni=[];
+            postazioni=await Postazione.lista(0,luogo,true);
+            logger.debug("bakeCreationData: Postazioni trovate:",postazioni);
+            return res.render("creaprenotazione",{listaPersone: persone,listaPostazioni: postazioni}) ;
         } catch (err) {
             logger.error ("PrenotazioneController. bakeCreationData ERRORE:", err);
             res.status(500).send ("Internal Server Error");
