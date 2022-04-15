@@ -28,10 +28,9 @@ class PrenotazioneController {
                   return res.status(400).send("id non numerico");
                 }
                 let p;
-                p=await Prenotazione.get(req.params.id);
+                p=await Prenotazione.exists(req.params.id);
                 if (p ) {
                     logger.debug("PrenotazioneController checkId found",p);
-                    req.Prenotazione=p;
                     next();
                 }  else {
                     logger.error("PrenotazioneController checkId Errore - id non trovato");
@@ -59,6 +58,16 @@ class PrenotazioneController {
         } catch (err) {
             logger.error ("ERRORE:", err);
             res.status(500).send ("Internal Server Error");
+        }
+    }
+
+    static async get (req,res) {
+        let result=await Prenotazione.get(req.params.id);
+        
+        if ( req.accepts("html") ) {
+            return res.render("viewpostazione",result);
+        } else {
+            return res.json(result);
         }
     }
 

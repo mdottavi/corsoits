@@ -31,7 +31,14 @@ const prenotazioneExistById = async (id_prenotazione) => {
 
 const getPrenotazioneById = async (id_prenotazione) => {
   const connection = await getConnection();
-  const query = 'SELECT * FROM prenotazione WHERE id = ?';
+  let query=`SELECT prenotazione.*, 
+                    postazione.id as post_id, postazione.luogo , postazione.data_ora,
+                    persona.id as pers_id, persona.nome, persona.cognome, persona.codice_fiscale, persona.data_nascita, persona.foto_tessera_sanitaria
+                    FROM prenotazione  
+                LEFT JOIN postazione ON prenotazione.postazione_id = postazione.id
+                LEFT JOIN persona    ON prenotazione.persona_id = persona.id
+                WHERE prenotazione.id = ?
+     `;
   const [rows] = await connection.query(query, [id_prenotazione]);
   return rows[0];
 }
