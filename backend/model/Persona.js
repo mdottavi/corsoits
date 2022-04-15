@@ -1,5 +1,7 @@
 
 const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, updateCampiPersona, softDelete, updateFotoPersona } = require('./persona.dao');
+const config= require('config');
+const { logger } = require('../common/logging');
 
 class Persona {
     constructor(p) {
@@ -16,10 +18,11 @@ class Persona {
     static async lista () {
         let listaPersonaDAO=await listPersona();
         let res=[];
-        listaPersonaDAO.forEach( e => {
-            res.push(new Persona(e));
-        })
-        console.log("Persona Model: list=" , res);
+        for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPersonaDAO.length); i++ ) { 
+//       listaPersonaDAO.forEach( e => {
+            res.push(new Persona(listaPersonaDAO[i]));
+        }
+        logger.silly("Persona Model: list=" , res);
         return res;
     }
 

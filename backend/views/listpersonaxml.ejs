@@ -1,0 +1,11 @@
+
+<persone>
+      <% for (var i = 0; i < lista.length; i++) { %>
+       <persona><nome><%= lista[i].nome %></nome>
+           <cognome><%= lista[i].cognome %></cognome>
+           <codfis><%=lista[i].CodFis %></codfis>
+           <data><%=lista[i].date %></data>
+           <ts><%=lista[i].TS %>'</ts>
+        </persona>
+    <% } %>
+</persone>    

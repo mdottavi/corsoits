@@ -6,21 +6,14 @@ const PersonaController = require ('../controllers/PersonaController');
 /**""
  * lista delle persone
  */
+
 routerPersona.get('/', PersonaController.lista);
-
-routerPersona.post('/', async (req, res) => {
-  //const persone = await listPersona();
-  return PersonaController.crea (req,res);
-  //let persone=[];
-  //return res.json(persone).send();
-})
+routerPersona.get('/crea', (req, res) => {return res.render("creapersona",{nome:"",cognome:"",id:"", CodFis:"", TS:"",date:""}) } );
+routerPersona.post('/', PersonaController.crea);
+routerPersona.delete('/:id', PersonaController.checkId, PersonaController.elimina);
+routerPersona.get('/:id', PersonaController.checkId, PersonaController.get);
+routerPersona.put('/:id', PersonaController.checkId, PersonaController.edit);
 
 
-routerPersona.get('/:id_persona', async (req, res) => {
-  //const persone = await listPersona();
-  return PersonaController.get (req,res);
-  //let persone=[];
-  //return res.json(persone).send();
-})
 
 module.exports = routerPersona;

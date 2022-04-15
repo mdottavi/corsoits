@@ -1,8 +1,9 @@
 const mysql = require('mysql2/promise');
+const config= require('config');
 
 const createConnection = async () => {
   return await mysql.createConnection({
-    host: 'localhost',
+    host: config.get('dbdomain'),
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PW,
     database: 'piattaforma_vaccini'
@@ -11,14 +12,14 @@ const createConnection = async () => {
 
 let connection;
 const getConnection = async () => {
-    if (!connection) {
-        connection = createConnection();
-    }
+  if(!connection) {
+    connection = await createConnection();
+  }
 
-    return connection;
+  return connection;
 }
 
 module.exports = {
-    createConnection,
-    getConnection
+  createConnection,
+  getConnection
 }

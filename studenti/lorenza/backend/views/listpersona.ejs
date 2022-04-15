@@ -1,25 +1,29 @@
 
-<html><head><title>Esempio di View con EJS</title></head>
+<html><head><title>Esempio di View con EJS</title>
+  <script>
+    function cancella(id) {
+        return fetch('/persona/'+id, {
+            method: 'DELETE'
+        });
+    }    
+        </script>
+</head>
 <body><h1> Lista Persone definite</h1>
   <table>
-      <tr><th>Nome</th><th>Cognome</th><th>CodFis</th><th>Nascita</th><th>Tessera Sanitaria</th></tr>
+      <tr><th>Nome</th><th>Cognome</th><th>CodFis</th><th>Nascita</th><th>Tessera Sanitaria</th><th>Azioni</th></tr>
     <% for (var i = 0; i < lista.length; i++) { %>
        <tr><td><%= lista[i].nome %></td>
            <td><%= lista[i].cognome %></td>
            <td><%=lista[i].CodFis %></td>
            <td><%=lista[i].date %></td>
-           <td><%=lista[i].TS %></td></tr>
+           <td><img src='/<%=lista[i].TS %>'/ height=100></td>
+           <td><input type='button' onclick='cancella("<%=lista[i].id %>")' value="Delete"/>
+            <input type='button' onclick="window.location.href='/persona/<%= lista[i].id %>'" value="Edit"/></td></td>
+          </tr>
     <% } %>
   </table>
   <hr/>
-  <table><form method="post" enctype="multipart/form-data">
-       
-    <tr><td>Nome</td><td><input type="text" name='nome' value=""></input ></td></tr>
-    <tr><td>Cognome</td><td><input type="text" name='cognome' value=""></input ></td></tr>
-    <tr><td>Codice Fiscale</td><td><input type="text" name='CF' value=""></input ></td></tr>
-    <tr><td>DataNascita</td><td><input type="text" name='date' value=""></input ></td></tr>
-    <tr><td>Tessera Sanitaria</td><td><input type="file" name='TS' value=""></input ></td></tr>
-    <tr><td><input type="submit" value='Aggiungi Nuova Persona'></input ></td></tr>
-    </form>
+  <a href="/persona/crea">Clicca Qui per creare nuove Persone...</a>
+ 
 
 </body></html>

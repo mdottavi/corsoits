@@ -1,5 +1,7 @@
 
-const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, updateCampiPersona, softDelete, updateFotoPersona } = require('./persona.dao');
+const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, personaDeleteById, updateCampiPersona, softDelete, updateFotoPersona } = require('./persona.dao');
+const config= require('config');
+const { logger } = require('../common/logging');
 
 class Persona {
     constructor(p) {
@@ -13,13 +15,19 @@ class Persona {
         } 
     }    
     
-    static async lista () {
-        let listaPersonaDAO=await listPersona();
+    static async lista (pagenum) {
+        let listaPersonaDAO=await listPersona(pagenum);
         let res=[];
+        logger.debug("Richiesta pagina num=" , pagenum);
+        //  vecchio modo (sbagliato) di limitare il numero di risultati
+        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPersonaDAO.length); i++ ) { 
+        //          res.push(new Persona(listaPersonaDAO[i]));
+        //    }
+
         listaPersonaDAO.forEach( e => {
             res.push(new Persona(e));
-        })
-        console.log("Persona Model: list=" , res);
+        });
+        logger.silly("Persona Model: list=" , res);
         return res;
     }
 
@@ -35,6 +43,10 @@ class Persona {
 
     static async find(id) {
         return await personaExistById(id);
+    }
+
+    static async delete(id) {
+        return await personaDeleteById(id);
     }
 
     setId(x) {
