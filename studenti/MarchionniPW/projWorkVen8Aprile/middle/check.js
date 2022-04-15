@@ -47,7 +47,7 @@ const checkAndGetPersona = async (req, res, next) => {
     return res.status(404).json({
       message: 'la prsona non esiste'
     }).send()
-  }
+  } 
   req.persona = persona;
   next();
 }

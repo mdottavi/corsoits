@@ -2,16 +2,20 @@ require('dotenv').config();
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const {listPersona} = require('./database/dao/personaDao');
-const { checkPersonaExists, checkAndGetPersona } = require('./middle/check');
+
 const { getConnection } = require('./database/connessione');
 const { stringify } = require('querystring');
+const personaRouting = require('./routing/personaRouting');
 
-app.get('/', function (req, res) {
-    console.log("Server operativo!")
-    res.write("ciao ")
-    res.end("mondo")
-  })
+app.use(express.json())
+app.use('/persona', personaRouting)
+app.use(express.static(__dirname + '/public'))
+
+// app.get('/', function (req, res) {
+//     console.log("Server operativo!")
+//     res.write("ciao ")
+//     res.end("mondo")
+//   })
 
 // rotta di test secondaria
 app.get('/rottaditest', function (req, res) {
@@ -21,23 +25,13 @@ app.get('/rottaditest', function (req, res) {
 })
 
 
-// prova per il Get di lista persone
-app.get('/persone', async (req, res) => {
-  const persone = await listPersona();
-  return res.json(persone).send()
-})
+
 
 // prova per il get di una persona da ID
 // app.get('/persona/:id_persona', checkAndGetPersona, async (req, res) => {
 //   return res.json(req.persona).send();
 // })
 // prova per il get di un singolo componente 
-app.get('/persona/:id_persona/:componente', checkAndGetPersona, async (req, res) => {
-  let compo = req.params.componente;
-  console.log(compo);
-  console.log(res.json(req.persona[compo]));
-  return res.json(req.persona.compo).write();
-})
 
 
 
@@ -79,5 +73,4 @@ app.delete('/prenotazione/:id_prenotazione', async (req, res) => {
 
 
 
-
-app.listen(3000)
+app.listen(9000)
