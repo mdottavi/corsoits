@@ -9,8 +9,6 @@ class Prenotazione{
             if (p.persona_id)             this.persID  =p.persona_id;
             if (p.postazione_id)          this.postID  =p.postazione_id_id;
             if (p.somministrazione_id)    this.sommID=p.somministrazione_id;
-            if (p.data_ora)               this.slot =p.data_ora;
-            if (p.luogo)                  this.postazione   =p.luogo;
         } 
     }    
     static async lista (pag) {

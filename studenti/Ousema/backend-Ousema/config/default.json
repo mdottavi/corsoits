@@ -1,4 +1,4 @@
 {
-    "max-results-per-page" : 2,
+    "max-results-per-page" : 15,
     "dbdomain" : "localhost"
 }
