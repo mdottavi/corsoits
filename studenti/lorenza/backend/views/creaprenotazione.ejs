@@ -18,15 +18,16 @@
   
 </script>
 </head>
- <%  if ( !current ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Modifica" ;  FunzionedaChiamare="edit('" + current.id + "')";} %> 
+ <%  if ( !current ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Modifica - " +current.id;  FunzionedaChiamare="edit('" + current.id + "')";} %> 
 <body><h1><%- NomeView %> di Prenotazione</h1>
   <table>
        
     <tr><td>Persona</td><td><select  id='pers_id' >
+      <% if (current) { %>
+        <option selected value="<%- current.pers_id %>"><%- current.nome %> <%- current.cognome %></option>
+      <% }  %>
       <% for (let i=0; i < listaPersone.length ; i++) { %>
-        <option <% if (current && (current.pers_id == listaPersone[i].id)) {%>
-           selected 
-           <%}%> value="<%- listaPersone[i].id %> <%- listaPersone[i].id %>"><%- listaPersone[i].nome %> <%- listaPersone[i].cognome %></option>
+        <option value="<%- listaPersone[i].id %>"><%- listaPersone[i].nome %> <%- listaPersone[i].cognome %></option>
       <% } %>
     </select></td></tr>
 

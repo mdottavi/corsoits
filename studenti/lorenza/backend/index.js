@@ -1,9 +1,28 @@
-require('dotenv').config();
-// uguale a const de = require ('dotenv'); + de.config(); // in th esiste anche funzione parse
+
 const express = require('express');
-const { routerPersona } = require('./rotte/persona');
-const { routerPrenotazionePersona } = require('./rotte/prenotazione-persona');
+const morgan = require('morgan');
+
+require('dotenv').config();
 const { json, urlencoded } = require('body-parser');
 const fileUpload = require('express-fileupload');
+const ConnectRouter = require ('./routes/main-router');
 
-console.log (process.env.MYSQL_USER + ' ' + process.env.MYSQL_USER)
+const { logger } = require('./common/logging');
+
+console.log("NODE_ENV=" + process.env.NODE_ENV);
+
+console.log("Starting Application...") ;
+
+
+const app = express()
+
+app.use(express.static('files'));
+app.use(express.static('resources'));
+app.use(json());
+app.use(urlencoded({ extended: true }));
+app.use(fileUpload());
+app.use(morgan('combined', { "stream": logger.httpStream }));
+app.set('view engine', 'ejs');
+ConnectRouter(app);
+
+app.listen(9000);
