@@ -16,7 +16,17 @@ app.get('/test', async function (req, res) {
    
     console.log('abbiamo fatto la connessione');
     // simple query
-    const query = await connection.query('select * from persona');
+    const query = await connection.query('select * from persona'); // ci mette 1 secondo
+    const query2 = await connection.query('select * from prenotazione'); // ci mette 3 secondi
+    // ci ha messo 4 secondi;
+
+    // da qui
+    const [contemporaneo1, contemporaneo2] = await Promise.all([
+      connection.query('select * from persona'),  // ci mette 1 secondo
+      connection.query('select * from prenotazione') // ci mette 3 secondi
+    ])
+    // a qui 3 secondi
+
     const results = query[0];
     const fiedls = query[1];
   
