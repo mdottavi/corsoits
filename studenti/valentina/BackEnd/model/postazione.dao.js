@@ -55,11 +55,18 @@ const updatePostazione = async (id, data_ora, luogo) => {
   const [res] = await connection.query(query, [data_ora, luogo, id]);
   return res.affectedRows === 1;
 }
+const postazioneDeleteById = async (id_postazione) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM postazione WHERE id = ?';
+  const [res] = await connection.query(query, [id_postazione]);
+  return res.affectedRows === 1;
+}
 
 module.exports = {
   listPostazione,
   postazioneExistById,
   getPostazioneById,
   insertPostazione,
-  updatePostazione
+  updatePostazione,
+  postazioneDeleteById
 }

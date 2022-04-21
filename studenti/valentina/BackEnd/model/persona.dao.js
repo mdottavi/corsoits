@@ -38,11 +38,11 @@ const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percor
   return res.insertId;
 }
 
-const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita) => {
+const updatePersona = async (id, nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
-  const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?
+  const query = `UPDATE persona SET nome = ?, cognome = ?, codice_fiscale = ?, data_nascita = ?, foto_tessera_sanitaria = ?
   WHERE id = ?`;
-  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, id]);
+  const [res] = await connection.query(query, [nome, cognome, codice_fiscale, data_nascita, percorsoFile, id]);
   return res.affectedRows === 1;
 }
 
@@ -91,6 +91,12 @@ const softDelete = async (id_persona) => {
   return res.affectedRows === 1;
 }
 
+const personaDeleteById = async (id_persona) => {
+  const connection = await getConnection();
+  const query = 'DELETE FROM persona WHERE id = ?';
+  const [res] = await connection.query(query, [id_persona]);
+  return res.affectedRows === 1;
+}
 module.exports = {
   listPersona,
   personaExistById,
@@ -99,5 +105,6 @@ module.exports = {
   updatePersona,
   updateCampiPersona,
   softDelete,
-  updateFotoPersona
+  updateFotoPersona,
+  personaDeleteById
 }
