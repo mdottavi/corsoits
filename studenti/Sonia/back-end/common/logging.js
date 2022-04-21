@@ -4,14 +4,14 @@ const { createLogger, transports, format } = require('winston');
 const { combine, splat, timestamp, printf } = format;
 
 // voglio che in ogni log ci sia il timestamp, il livello, il messaggio. Questo format FORMATTA una stringa
-const myFormat = printf(({level, message, timestamp, ...metadata}) => {
+const myFormat = printf( ({level, message, timestamp, ...metadata}) => {
     let msg = `${timestamp} [${level}] ${message}`;
     if (metadata) {
         msg += JSON.stringify(metadata);
     }
     return msg;
 });
-const mysimpleFormat = printf(({level, message, timestamp, ...metadata}) => {
+const mysimpleFormat = printf( ({level, message, timestamp, ...metadata}) => {
     let msg = `${timestamp} [${level}] ${message}`;
     return msg;
 })
@@ -22,7 +22,7 @@ const logger = createLogger({
 
     transports: [
         new transports.Console({
-            format:combine(
+            format: combine(
                 format.colorize(),
                 splat(),
                 timestamp({format: 'YYY-MM-DD HH:mm:ss.SSS'}),

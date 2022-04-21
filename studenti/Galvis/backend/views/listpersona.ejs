@@ -1,0 +1,29 @@
+
+<html><head><title>Lista Persona</title>
+  <script>
+    function cancella(id) {
+        return fetch('/persona/'+id, {
+            method: 'DELETE'
+        });
+    }    
+        </script>
+</head>
+<body><h1> Lista Persone definite</h1>
+  <table>
+      <tr><th>Nome</th><th>Cognome</th><th>CodFis</th><th>Nascita</th><th>Tessera Sanitaria</th><th>Azioni</th></tr>
+    <% for (var i = 0; i < lista.length; i++) { %>
+       <tr><td><%= lista[i].nome %></td>
+           <td><%= lista[i].cognome %></td>
+           <td><%=lista[i].CodFis %></td>
+           <td><%=lista[i].date %></td>
+           <td><img src='/<%=lista[i].TS %>'/ height=100></td>
+           <td><input type='button' onclick='cancella("<%=lista[i].id %>")' value="Delete"/>
+            <input type='button' onclick="window.location.href='/persona/<%= lista[i].id %>'" value="Edit"/></td></td>
+          </tr>
+    <% } %>
+  </table>
+  <hr/>
+  <a href="/persona/crea">Clicca Qui per creare nuove Persone...</a>
+ 
+
+</body></html>

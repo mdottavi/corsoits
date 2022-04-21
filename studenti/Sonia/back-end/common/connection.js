@@ -14,7 +14,7 @@ const createConnection = async () => {
 let connection;
 const getConnection = async () => {
     if (!connection) {
-        connection = createConnection();
+        connection = await createConnection();
     }
 
     return connection;
