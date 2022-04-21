@@ -137,30 +137,14 @@ class Prenotazione {
         return this.luogo;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     async save() {
         if (typeof (this.id) != 'undefined' && this.id != null ) {
             // id e' definito quindi dobbiamo aggiornare il recordo della prenotazione
-            let res= await updatePrenotazione (this.id, this.nome, this.cognome, this.CodFis, this.date, this.TS);
+            let res= await updatePrenotazione (this.id, this.pers_id, this.post_id );
             if (! res) throw 'save Prenotazione failed (update case).'; 
         } else {
             // id non e' definito quindi dobbiamo creare un nuovo record
-            let res= await insertPrenotazione (this.nome, this.cognome, this.CodFis, this.date, this.TS);
+            let res= await insertPrenotazione ( this.pers_id, this.post_id);
             this.setId(res);
             if (! res) throw 'save Prenotazione failed (insert case).'; 
         }
