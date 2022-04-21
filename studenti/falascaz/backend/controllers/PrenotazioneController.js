@@ -82,7 +82,6 @@ class PrenotazioneController {
             logger.debug("Creo nuova Postazione:", np);
             await  np.save();
             res.status(201).send("Created");
-            //return PostazioneController.lista (req,res) ;
         } catch (err) {
             logger.error ("ERRORE:", err);
             res.status(500).send ("Internal Server Error");
@@ -97,8 +96,6 @@ class PrenotazioneController {
             }
             let ep=null;
             if (typeof (req.params) != 'undefined' && typeof (req.params.id) != 'undefined') {
-                // siamo nel caso di update... quindi carichiamo anche il pers_id e post_id della 
-                // prenotazione corrente.
                 ep=await Prenotazione.get(req.params.id);
             }
             let persone=[];
