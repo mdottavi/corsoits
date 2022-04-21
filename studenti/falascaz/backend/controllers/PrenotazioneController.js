@@ -114,7 +114,6 @@ class PrenotazioneController {
     static async edit (req,res) {
         try {
             let np=await Prenotazione.get(req.params.id);
-
             logger.debug("req.body:", req.body);
             if (req.body.post_id) np.setPost_id(req.body.post_id);
             if (req.body.pers_id) np.setPers_id(req.body.pers_id);            
