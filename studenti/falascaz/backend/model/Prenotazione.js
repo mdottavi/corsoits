@@ -28,10 +28,6 @@ class Prenotazione {
         let listaPrenotazioneDAO=await listPrenotazione(pagenum);
         let res=[];
         logger.debug("Richiesta pagina num=" , pagenum);
-        //  vecchio modo (sbagliato) di limitare il numero di risultati
-        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPrenotazioneDAO.length); i++ ) { 
-        //          res.push(new Prenotazione(listaPrenotazioneDAO[i]));
-        //    }
 
         listaPrenotazioneDAO.forEach( e => {
             res.push(new Prenotazione(e));
@@ -91,7 +87,6 @@ class Prenotazione {
     }
 
     setCodFis(x) {
-        // Qui potremmo testare che il codice Fiscale sia settato correttamente
         this.CodFis=x;
 
     }
@@ -121,7 +116,6 @@ class Prenotazione {
     getPost_id() {
         return this.post_id;
     }    
-    //data_ora
     setData_ora(x) {
         this.data_ora=x;
     }
@@ -129,7 +123,6 @@ class Prenotazione {
         return this.data_ora;
     }
 
-    //luogo
     setLuogo(x) {
         this.luogo=x;
     }

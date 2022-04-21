@@ -2,10 +2,6 @@ const { Router } = require('express');
 const routerPrenotazione = Router();
 const PrenotazioneController = require ('../controllers/PrenotazioneController');
 
-
-/**""
- * lista delle prenotazioni
- */
  routerPrenotazione.get('/', PrenotazioneController.lista);
  routerPrenotazione.post('/', PrenotazioneController.crea);
  routerPrenotazione.get('/crea', PrenotazioneController.bakeCreationUpdateData );

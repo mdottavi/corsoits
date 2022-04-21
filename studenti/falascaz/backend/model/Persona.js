@@ -19,10 +19,6 @@ class Persona {
         let listaPersonaDAO=await listPersona(pagenum);
         let res=[];
         logger.debug("Richiesta pagina num=" , pagenum);
-        //  vecchio modo (sbagliato) di limitare il numero di risultati
-        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPersonaDAO.length); i++ ) { 
-        //          res.push(new Persona(listaPersonaDAO[i]));
-        //    }
 
         listaPersonaDAO.forEach( e => {
             res.push(new Persona(e));
@@ -78,9 +74,7 @@ class Persona {
     }
 
     setCodFis(x) {
-        // Qui potremmo testare che il codice Fiscale sia settato correttamente
         this.CodFis=x;
-
     }
     getCodFis() {
         return this.CodFis;

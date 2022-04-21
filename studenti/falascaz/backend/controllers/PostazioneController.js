@@ -20,8 +20,6 @@ class PostazioneController {
         logger.debug ("PostazioneController pag=" + pagnum + "luogo="+ luogo + "disponibili=" + disponibili);
 
         let result=await Postazione.lista(pagnum,luogo,disponibili);
-        //return res.json(result);    
-        //return PersonaView(res, result );
         if ( req.accepts("html") ) {
             return res.render("listpostazione",{lista:result});
         } else {
@@ -38,7 +36,6 @@ class PostazioneController {
             logger.debug("Creo nuova Postazione:", np);
             await  np.save();
             res.status(201).send("Created");
-            //return PostazioneController.lista (req,res) ;
         } catch (err) {
             logger.error ("ERRORE:", err);
             res.status(500).send ("Internal Server Error");
@@ -117,7 +114,6 @@ class PostazioneController {
             logger.debug("Salvo la Postazione:", np);
             await  np.save();
             res.status(200).send("Ok");
-            //return PostazioneController.lista (req,res) ;
         } catch (err) {
             logger.error ("ERRORE:", err);
             res.status(500).send ("Internal Server Error");

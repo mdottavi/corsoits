@@ -13,8 +13,7 @@ class PrenotazioneController {
         logger.debug ("PrenotazioneController:" + pagnum);
 
         let result=await Prenotazione.lista(pagnum);
-        //return res.json(result);    
-        //return PersonaView(res, result );
+
         if ( req.accepts("html") ) {
             return res.render("listprenotazione",{lista:result});
         } else {
@@ -125,7 +124,6 @@ class PrenotazioneController {
             logger.debug("Salvo la Prenotazione:", np);
             await  np.save();
             res.status(200).send("Ok");
-            //return PostazioneController.lista (req,res) ;
         } catch (err) {
             logger.error ("PrenotazioneController edit ERRORE:", err);
             res.status(500).send ("Internal Server Error");

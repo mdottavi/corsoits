@@ -29,7 +29,7 @@ const getPersonaById = async (id_persona) => {
   const [rows] = await connection.query(query, [id_persona]);
   return rows[0];
 }
-// ALT + 0 0 9 6 => `
+
 const insertPersona = async (nome, cognome, codice_fiscale, data_nascita, percorsoFile) => {
   const connection = await getConnection();
   const query = `INSERT INTO persona (nome, cognome, codice_fiscale, data_nascita, foto_tessera_sanitaria)
@@ -73,8 +73,6 @@ const updateCampiPersona = async (id, nome, cognome, codice_fiscale, data_nascit
     campi.push('data_nascita');
     params.push(data_nascita);
   }
-  // campi = ['nome', 'cognome']
-  // campi = ['nome = ?', 'cognome = ?']
 
   params.push(id);
   const query = `UPDATE persona SET ${campi.map(campo => campo + ` = ?`).join(',')} WHERE id = ?`;

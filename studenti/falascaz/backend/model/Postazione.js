@@ -16,10 +16,6 @@ class Postazione {
         let listaPostazioneDAO=await listPostazione(pagenum,luogo,disponibili);
         let res=[];
         logger.debug("Richiesta pagina num=" , pagenum);
-        //  vecchio modo (sbagliato) di limitare il numero di risultati
-        //      for ( let i = 0; (i <  config.get('max-results-per-page')) && (i<listaPostazioneDAO.length); i++ ) { 
-        //          res.push(new Postazione(listaPostazioneDAO[i]));
-        //    }
 
         listaPostazioneDAO.forEach( e => {
             res.push(new Postazione(e));
@@ -46,7 +42,6 @@ class Postazione {
         return await postazioneDeleteById(id);
     }
 
-    // id
     setId(x) {
         if (x == null || typeof(x) == 'undefined')  throw 'Nome cannot be null';
         this.id=x;
@@ -55,7 +50,6 @@ class Postazione {
         return this.id;
     }
 
-    //data_ora
     setData_ora(x) {
         this.data_ora=x;
     }
@@ -63,7 +57,6 @@ class Postazione {
         return this.data_ora;
     }
 
-    //luogo
     setLuogo(x) {
         this.luogo=x;
     }

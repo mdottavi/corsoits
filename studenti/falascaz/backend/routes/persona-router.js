@@ -2,11 +2,6 @@ const { Router } = require('express');
 const routerPersona = Router();
 const PersonaController = require ('../controllers/PersonaController');
 
-
-/**""
- * lista delle persone
- */
-
 routerPersona.get('/', PersonaController.lista);
 routerPersona.get('/crea', (req, res) => {return res.render("creapersona",{nome:"",cognome:"",id:"", CodFis:"", TS:"",date:""}) } );
 routerPersona.post('/', PersonaController.crea);

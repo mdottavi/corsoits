@@ -4,30 +4,6 @@ const { randomUUID } = require('crypto');
 const PersonaView=require('../views/PersonaView');
 const { logger } = require('../common/logging');
 
-// parametgri in querystring (http://nomedominio/url?chiave=valore&chiave2=valore2)
-//                                                   ^^^^^^^^^^^^^
-//                                                    querystring
-//   req.query.chiave
-//   req.query.chiave2
-
-// parametgri in url (http://nomedominio/nome/:chiave/url/:chiave2?chiave=valore&chiave2=valore2)
-//                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
-//                                               url
-//   req.params.chiave
-//   req.params.chiave2
-
-// parametri in form/json (http://nomedominio/nome/:chiave/url/:chiave2?chiave=valore&chiave2=valore2)
-//                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
-//                                               url
-//   req.body.chiave
-//   req.body.chiave2
-
-// files in form (http://nomedominio/nome/:chiave/url/:chiave2?chiave=valore&chiave2=valore2)
-//
-//   req.files.TS (dove TS e' il nome del campo di input del form )
-//   req.files.TS.mv req.files.TS.name
-
-
 class PersonaController {
     static async checkId (req,res,next) {
         try {
