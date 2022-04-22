@@ -1,0 +1,6 @@
+node_modules
+.vscode
+.env
+files/
+logs/
+Appunti.txt

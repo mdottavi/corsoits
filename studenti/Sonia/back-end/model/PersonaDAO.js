@@ -1,3 +1,4 @@
+const { getConnection } = require("../db/connection");
 
 // finalizzo nel DAO tutto ciò che ha a che fare con mysql
 class PersonaDAO {
@@ -37,11 +38,21 @@ class PersonaDAO {
             return result;
         }
 
-        personaExistById = async (id_persona) => {
+        static personaExistById = async (id_persona) => {
             const connection = await getConnection();
+
+            // faccio la query
             const query = 'SELECT 1 FROM persona WHERE id = ?';
+
+            // mostro se la persona esiste
             const [rows] = await connection.query(query, [id_persona]);
-            return rows.length > 0;
+
+            // prova 1
+            let result = [];
+            rows.forEach((o) => {
+                result.push(new PersonaDAO(o));
+            });
+            return result.length > 0;
           }
 }
 

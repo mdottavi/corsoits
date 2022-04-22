@@ -1,0 +1,29 @@
+
+<html><head><title>Esempio di View con EJS</title></head>
+<script>
+function callme (p) {
+   let x=document.getElementById("posto-per-scrivere");
+   x.innerHTML=p;
+}  
+</script>
+<% 
+function callme(p){
+    return "chiamo con:"+p;
+}
+%>
+<body><h1> Tool per la creazione di una nuova persona</h1>
+  <div id='posto-per-scrivere'></div>
+  <table><form action="/persona" method="post" enctype="multipart/form-data">
+       
+    <tr><td>Nome</td><td><input type="text" name='nome' value=""></input ></td></tr>
+    <tr><td>Cognome</td><td><input type="text" name='cognome' value=""></input ></td></tr>
+    <tr><td>Codice Fiscale</td><td><input type="text" name='CF' value=""></input ></td></tr>
+    <tr><td>DataNascita</td><td><input type="text" name='date' value=""></input ></td></tr>
+    <tr><td>Tessera Sanitaria</td><td><input type="file" name='TS' value=""></input ></td></tr>
+    <tr><td><input type="submit" value='Aggiungi Nuova Persona'></input ></td></tr>
+    </form>
+  </table>
+  <script>
+    callme("Ciao");
+  </script>
+</body></html>

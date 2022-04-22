@@ -20,6 +20,8 @@ const controllaSeIlFileEsiste = (req, res, next) => {
   next();
 }
 
+
+
 v3Router.get('/contatori', (req, res) => {
   console.log('siamo nella rotta contatore lista v3');
 
@@ -38,6 +40,12 @@ v3Router.get('/contatori', (req, res) => {
     })
   }
 });
+v3Router.head('/contatori/:nomeFile', controllaSeIlFileEsiste, (req, res) => {
+  console.log('siamo nella rotta contatore v3');
+  return res.status(204).send();
+});
+
+// v3Router.options() ?? TODO
 
 v3Router.get('/contatori/:nomeFile', controllaSeIlFileEsiste, (req, res) => {
   console.log('siamo nella rotta contatore v3');

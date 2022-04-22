@@ -6,6 +6,14 @@ const listPrenotazioni = async () => {
     return rows;
 }
 
+const insertPrenotazione = async () => {
+    const connection = await getMyConnection();
+    const query = `INSERT INTO prenotazione (persona_id, data_ora, luogo) SELECT id, ?, ? FROM persona`;
+    const [res] = await connection.query(query, [persona_id, data_ora, luogo]);
+    return res.insertId;
+}
+
 module.exports = {
-    listPrenotazioni
+    listPrenotazioni,
+    insertPrenotazione
 }
