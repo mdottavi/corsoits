@@ -1,3 +1,4 @@
+
 const express = require("express")
 const app = express()
 const { getConnection } = require("./connectionSql")
@@ -13,6 +14,11 @@ function MDW2 (req, res, next) {
 }
 
 app.use(MDW1);
+
+app.get("/test", (req, res) => {
+    console.log("CIAO");
+    res.end();
+})
 
 app.get('/', async function (req, res) {
     const connection = await getConnection();
