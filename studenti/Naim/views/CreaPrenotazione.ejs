@@ -1,0 +1,46 @@
+
+<html><head><title>Nuova Prenotazione</title>
+    <script>
+    function edit(id) {
+      return fetch('/prenotazione/'+id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "pers_id": document.getElementById("pers_id").value , "post_id" :document.getElementById("post_id").value })
+      });
+    } 
+    function crea() {
+      return fetch('/prenotazione/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "pers_id": document.getElementById("pers_id").value , "post_id" :document.getElementById("post_id").value })
+      });
+    }
+    
+  </script>
+  </head>
+   <%  if ( !current ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Modifica" ;  FunzionedaChiamare="edit('" + current.id + "')";} %> 
+  <body><h1><%- NomeView %> di Prenotazione</h1>
+    <table>
+         
+      <tr><td>Persona</td><td><select  id='pers_id' >
+        <% for (let i=0; i < listaPersone.length ; i++) { %>
+          <option <% if (current && (current.pers_id == listaPersone[i].id)) {%>
+             selected 
+             <%}%> value="<%- listaPersone[i].id %> <%- listaPersone[i].id %>"><%- listaPersone[i].nome %> <%- listaPersone[i].cognome %></option>
+        <% } %>
+      </select></td></tr>
+  
+      <tr><td>Postazione</td><td><select  id='post_id' >
+        <% if (current) { %>
+          <option selected value="<%- current.post_id %>"><%- current.luogo %> <%- current.data_ora %></option>
+        <% }  %>
+        <% for (let i=0; i < listaPostazioni.length ; i++) { %>
+          <option value="<%- listaPostazioni[i].id %>"><%- listaPostazioni[i].luogo %> - <%- listaPostazioni[i].data_ora %></option>
+        <% } %>
+      </select></td></tr>
+      <tr><td><button type="submit" value='Salva' onclick="- FunzionedaChiamare ">Salva</button ></td></tr>
+      
+    </table>
+  
+  
+  </body></html>

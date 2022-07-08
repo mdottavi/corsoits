@@ -1,0 +1,31 @@
+<html><head><title>Esempio di View con EJS</title>
+    <script>
+    function edit(id) {
+      return fetch('/postazione/'+id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "luogo": document.getElementById("luogo").value , "data_ora" :document.getElementById("data_ora").value })
+      });
+    } 
+    function crea() {
+      return fetch('/postazione/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "luogo": document.getElementById("luogo").value , "data_ora" :document.getElementById("data_ora").value })
+      });
+    }
+    
+  </script>
+  </head>
+   <% if ( luogo == "" ) { NomeView="Creazione"; FunzionedaChiamare="crea()"; } else { NomeView="Visualizzazione";  FunzionedaChiamare="edit('" + id + "')";} %> 
+  <body><h1><%- NomeView %> di Postazione</h1>
+    <table>
+         
+      <tr><td>Luogo</td><td><input type="text" name='luogo' id ='luogo' value="<%= luogo %>"></input ></td></tr>
+      <tr><td>Data e ora</td><td><input type="text" name='data_ora'  id ='data_ora' value="<%= data_ora %>"></input ></td></tr>
+      <tr><td><button type="submit" value='Salva' onclick="- FunzionedaChiamare ">Salva</button ></td></tr>
+      
+    </table>
+  
+  
+  </body></html>
